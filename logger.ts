@@ -39,7 +39,7 @@ export default class Logger {
     return this.encoder.encode(msg + eol);
   }
 
-  info(...args: unknown[]) {
+  info(...args: unknown[]): void {
     this.stdout(this.getInfo(), ...args);
     if (this.dir) {
       this.write({
@@ -50,7 +50,7 @@ export default class Logger {
     }
   }
 
-  warn(...args: unknown[]) {
+  warn(...args: unknown[]): void {
     this.stdout(this.getWarn(), ...args);
     if (this.dir) {
       this.write({
@@ -61,7 +61,7 @@ export default class Logger {
     }
   }
 
-  error(...args: unknown[]) {
+  error(...args: unknown[]): void {
     this.stdout(this.getError(), ...args);
     if (this.dir) {
       this.write({
@@ -72,7 +72,7 @@ export default class Logger {
     }
   }
 
-  private write({ dir, type, args }: LoggerWriteOptions) {
+  private write({ dir, type, args }: LoggerWriteOptions): void {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
@@ -100,51 +100,51 @@ export default class Logger {
     });
   }
 
-  disable() {
+  disable(): void {
     this.info = noop;
     this.warn = noop;
     this.error = noop;
   }
 
-  enable() {
+  enable(): void {
     this.info = this.#info;
     this.warn = this.#warn;
     this.error = this.#error;
   }
 
-  disableConsole() {
+  disableConsole(): void {
     this.stdout = noop;
   }
 
-  enableConsole() {
+  enableConsole(): void {
     this.stdout = stdout;
   }
 
-  disableFile() {
+  disableFile(): void {
     this.write = noop;
   }
 
-  enableFile() {
+  enableFile(): void {
     this.write = this.#write;
   }
 
-  private getInfo() {
+  private getInfo(): string {
     return green(`${this.getNow()} Info:`);
   }
 
-  private getWarn() {
+  private getWarn(): string {
     return green(this.getNow()) + yellow(` Warn:`);
   }
 
-  private getError() {
+  private getError(): string {
     return green(this.getNow()) + red(` Error:`);
   }
 
-  private getNow() {
+  private getNow(): string {
     return new Dater().toLocaleString();
   }
 
-  private getDate() {
+  private getDate(): string {
     return new Dater().toLocaleDateString();
   }
 }
