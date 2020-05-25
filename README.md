@@ -1,9 +1,6 @@
 # deno-logger
 logger for deno
 
-
-deno run --allow-read --allow-write  ./test.ts
-
 ## Useage  
 
 ### console logger  
@@ -53,10 +50,11 @@ logger.info(['i am from fileLogger', 1], { name: 'zfx' });
 ### file logger optional parameter
 interface 
 ```ts
-interface RotatingFileHandlerOptions {
+interface fileLoggerOptions {
   rotate?: true,  // cut by day, default false
-  maxBytes?: number;
-  maxBackupCount?: number;
+  maxBytes?: number; 
+  // Only available if maxBytes is provided, Otherwise you will get an error
+  maxBackupCount?: number; 
 }
 ```
 example
@@ -75,7 +73,15 @@ await logger.initFileLogger('../log', {
 // filename is [type].log.[timestamp]
 // example: info.log.1590374415956
 await logger.initFileLogger('../log', {
-  maxBytes: 10 * 1024, // 
+  maxBytes: 10 * 1024
+});
+
+// rotate and maxBytes
+// filename is [date]_[type].log.[timestamp]
+// example: 2020-05-25_info.log.1590374415956
+await logger.initFileLogger('../log', {
+  rotate: true, 
+  maxBytes: 10 * 1024
 });
 
 // maxBytes and maxBackupCount
@@ -102,17 +108,8 @@ be renamed to `log.txt.1` and finally `log.txt` would be created from scratch
 where the new log message would be written.
 */
 await logger.initFileLogger('../log', {
-  maxBytes: 10 * 1024, // 
-  maxBackupCount: 10  //
-});
-
-// rotate and maxBytes
-// filename is [date]_[type].log.[timestamp]
-// example: 2020-05-25_info.log.1590374415956
-await logger.initFileLogger('../log', {
-  rotate: true,  // cut by day
-  maxBytes: 10 * 1024, // 
-  maxBackupCount: 10  //
+  maxBytes: 10 * 1024, 
+  maxBackupCount: 10  
 });
 
 // rotate and maxBytes and maxBackupCount
@@ -120,9 +117,28 @@ await logger.initFileLogger('../log', {
 // example 2020-05-25_info.log.1, 2020-05-25_info.log.2
 // when reach maxBackupCount, the [type].log.[maxBackupCount-1] will be overwrite
 await logger.initFileLogger('../log', {
-  rotate: true,  // cut by day
-  maxBytes: 10 * 1024, // 
-  maxBackupCount: 10  //
+  rotate: true,  
+  maxBytes: 10 * 1024, 
+  maxBackupCount: 10 
+});
+
+// rotate and maxBackupCount
+// maxBackupCount will be ignored
+await logger.initFileLogger('../log', {
+  rotate: true,  
+  maxBackupCount: 10 
+});
+
+// maxBackupCount
+// get error => maxBackupCount must work with maxBytes
+await logger.initFileLogger('../log', {
+  maxBackupCount: 10 
+});
+// rotate and maxBackupCount
+// get error => maxBackupCount must work with maxBytes
+await logger.initFileLogger('../log', {
+  rotate: true,
+  maxBackupCount: 10 
 });
 ```  
 
@@ -182,10 +198,10 @@ logger.enable();
 
 ### info  
 ```ts
-interface fileLoggerOptions extends WriterOptions {
+interface fileLoggerOptions {
   rotate?: boolean;
   maxBytes?: number,
-  maxBackupCount?: number
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
 }
 
 interface LoggerInerface {
@@ -206,6 +222,11 @@ interface LoggerInerface {
   disable(): void;
   enable(): void;
 }
+```
+
+## test
+```bash
+deno test --allow-read --allow-write
 ```
 
 ## Screenshots
