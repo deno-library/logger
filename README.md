@@ -194,9 +194,7 @@ logger.disable();
 logger.enable();
 ```
 
-## options
-
-### info  
+## Logger interface
 ```ts
 interface fileLoggerOptions {
   rotate?: boolean;
