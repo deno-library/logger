@@ -12,18 +12,19 @@ export default class Writer {
   private errorPath?: string;
 
   constructor({ maxBytes, maxBackupCount }: WriterOptions) {
-    if (maxBytes) {
-      if (maxBytes < 1) {
-        throw new Error("maxBytes cannot be less than 1");
-      }
-      this.maxBytes = maxBytes;
+    if (maxBytes !== undefined && maxBytes <= 0) {
+      throw new Error("maxBytes cannot be less than 1");
     }
-    if (maxBackupCount) {
-      if (maxBackupCount < 1) {
-        throw new Error("maxBackupCount cannot be less than 1");
-      }
-      this.maxBackupCount = maxBackupCount;
+    this.maxBytes = maxBytes;
+
+    if (maxBackupCount === undefined) return;
+    if (!maxBytes) {
+      throw new Error("maxBackupCount must work with maxBytes");
     }
+    if (maxBackupCount <= 0) {
+      throw new Error("maxBackupCount cannot be less than 1");
+    }
+    this.maxBackupCount = maxBackupCount;
   }
 
   private async newWriter(path: string) {
