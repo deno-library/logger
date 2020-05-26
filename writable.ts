@@ -25,6 +25,7 @@ export default class Writable {
   }
 
   close(): void {
+    // this.file.close();
     close(this.file.rid);
   }
 }
