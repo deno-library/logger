@@ -1,17 +1,23 @@
 import Writable from './writable.ts';
 import { exists } from './fs.ts';
-import { WriterOptions } from './interface.ts';
+import {
+  WriterConstructor,
+  WriterWrite
+} from './interface.ts';
+import { INFO, WARN, ERROR } from './types.ts';
 
 export default class Writer {
   private maxBytes?: number;
   private maxBackupCount?: number;
-  private map = new Map();
+  private pathWriterMap = new Map();
 
-  private infoPath?: string;
-  private warnPath?: string;
-  private errorPath?: string;
+  private typePathDict = new Map([
+    [INFO, ''],
+    [WARN, ''],
+    [ERROR, '']
+  ]);
 
-  constructor({ maxBytes, maxBackupCount }: WriterOptions) {
+  constructor({ maxBytes, maxBackupCount }: WriterConstructor) {
     if (maxBytes !== undefined && maxBytes <= 0) {
       throw new Error("maxBytes cannot be less than 1");
     }
@@ -30,15 +36,15 @@ export default class Writer {
   private async newWriter(path: string) {
     const writer = new Writable(path);
     await writer.setup();
-    this.map.set(path, writer);
+    this.pathWriterMap.set(path, writer);
     return writer;
   }
 
-  async write(path: string, msg: Uint8Array): Promise<void> {
+  async write({ path, msg, type }: WriterWrite): Promise<void> {
     const msgByteLength = msg.byteLength;
 
-    if (this.map.has(path)) {
-      const writer = this.map.get(path);
+    if (this.pathWriterMap.has(path)) {
+      const writer = this.pathWriterMap.get(path);
       const currentSize = writer.currentSize;
       const size = currentSize + msgByteLength;
       if (this.maxBytes && size > this.maxBytes) {
@@ -52,18 +58,12 @@ export default class Writer {
       return;
     }
 
-    if (path.includes('info')) {
-      if (this.infoPath) this.map.get(this.infoPath).close();
-      this.infoPath = path;
-    } else if (path.includes('warn')) {
-      if (this.warnPath) this.map.get(this.warnPath).close();
-      this.warnPath = path;
-    } else if (path.includes('error')) {
-      if (this.errorPath) this.map.get(this.errorPath).close();
-      this.errorPath = path;
-    } else {
-      throw new Error('Unexpected file path');
+    const typePath = this.typePathDict.get(type);
+    if (typePath) {
+      this.pathWriterMap.get(typePath).close();
+      this.pathWriterMap.delete(typePath);
     }
+    this.typePathDict.set(type, path);
 
     const writer = await this.newWriter(path);
     await writer.write(msg);

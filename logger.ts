@@ -12,6 +12,7 @@ import {
   fileLoggerOptions,
   LoggerWriteOptions
 } from './interface.ts';
+import { INFO, WARN, ERROR } from './types.ts';
 const { inspect } = Deno;
 
 const noop = () => void {};
@@ -29,7 +30,7 @@ export default class Logger {
   #write = this.write;
 
   private format(...args: unknown[]): Uint8Array {
-    const msg = args.map(arg => inspect(arg)).join('');
+    const msg = args.map(arg => inspect(arg)).join(' ');
     // const msg = args.map(arg => inspect(arg, {
     //   showHidden: true,
     //   depth: 4,
@@ -44,7 +45,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: 'info',
+        type: INFO,
         args
       });
     }
@@ -55,7 +56,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: 'warn',
+        type: WARN,
         args
       });
     }
@@ -66,7 +67,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: 'error',
+        type: ERROR,
         args
       });
     }
@@ -76,8 +77,8 @@ export default class Logger {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
-    const msg = this.format(`[${this.getNow()}] `, ...args);
-    this.writer!.write(path, msg);
+    const msg = this.format(`[${this.getNow()}]`, ...args);
+    this.writer!.write({ path, msg, type });
   }
 
   async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void> {
