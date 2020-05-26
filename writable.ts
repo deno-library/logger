@@ -19,15 +19,8 @@ export default class Writable {
     this.currentSize = (await stat(this.path)).size;
   }
 
-  async write(msg: Uint8Array, retry = true) {
-    try {
-      await Deno.writeAll(this.file, msg);
-    } catch (error) {
-      if (!retry) Promise.reject(error);
-      this.close();
-      await this.setup();
-      await this.write(msg, false);
-    }
+  async write(msg: Uint8Array): Promise<void> {
+    await Deno.writeAll(this.file, msg);
     this.currentSize += msg.byteLength;
   }
 
