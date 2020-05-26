@@ -1,4 +1,4 @@
-const { open, close } = Deno;
+const { open, close, stat } = Deno;
 type File = Deno.File;
 
 export default class Writable {
@@ -16,7 +16,7 @@ export default class Writable {
       append: true,
       write: true
     });
-    this.currentSize = (await Deno.stat(this.path)).size;
+    this.currentSize = (await stat(this.path)).size;
   }
 
   async write(msg: Uint8Array, retry = true) {
@@ -24,14 +24,14 @@ export default class Writable {
       await Deno.writeAll(this.file, msg);
     } catch (error) {
       if (!retry) Promise.reject(error);
-      close(this.file.rid);
+      this.close();
       await this.setup();
       await this.write(msg, false);
     }
     this.currentSize += msg.byteLength;
   }
 
-  async close(): Promise<void> {
+  close(): void {
     close(this.file.rid);
   }
 }
