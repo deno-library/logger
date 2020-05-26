@@ -3,13 +3,9 @@ const format = (n: number) => n.toString().padStart(2, '0');
 
 export default class Dater extends Date {
   toLocaleString(separator: string = '-'): string {
-    const year = format(this.getFullYear());
-    const month = format(this.getMonth() + 1);
-    const day = format(this.getDate());
-    const hour = format(this.getHours());
-    const minute = format(this.getMinutes());
-    const second = format(this.getSeconds());
-    return `${year}${separator}${month}${separator}${day} ${hour}:${minute}:${second}`;
+    const dateString = this.toLocaleDateString(separator);
+    const timeString = this.toLocaleTimeString();
+    return `${dateString} ${timeString}`;
   }
 
   toLocaleDateString(separator: string = '-'): string {
