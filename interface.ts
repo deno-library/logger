@@ -1,3 +1,5 @@
+import Types from './types.ts';
+
 export interface WriterConstructor {
   maxBytes?: number,
   maxBackupCount?: number
@@ -6,7 +8,7 @@ export interface WriterConstructor {
 export interface WriterWrite {
   path: string,
   msg: Uint8Array,
-  type: string
+  type: Types
 }
 
 export interface fileLoggerOptions extends WriterConstructor {
@@ -15,6 +17,6 @@ export interface fileLoggerOptions extends WriterConstructor {
 
 export interface LoggerWriteOptions {
   dir: string;
-  type: string;
+  type: Types;
   args: unknown[];
 }

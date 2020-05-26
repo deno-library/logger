@@ -1,3 +1,7 @@
-export const INFO = 'info';
-export const WARN = 'warn';
-export const ERROR = 'error';
+const enum Types {
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error'
+}
+
+export default Types

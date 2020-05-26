@@ -1,4 +1,4 @@
-import Logger from "https://raw.githubusercontent.com/fuxingZhang/deno-logger/master/logger.ts";
+import Logger from "../logger.ts";
 
 const logger = new Logger();
 

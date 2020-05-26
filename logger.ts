@@ -12,7 +12,7 @@ import {
   fileLoggerOptions,
   LoggerWriteOptions
 } from './interface.ts';
-import { INFO, WARN, ERROR } from './types.ts';
+import Types from './types.ts';
 const { inspect } = Deno;
 
 const noop = () => void {};
@@ -45,7 +45,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: INFO,
+        type: Types.INFO,
         args
       });
     }
@@ -56,7 +56,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: WARN,
+        type: Types.WARN,
         args
       });
     }
@@ -67,7 +67,7 @@ export default class Logger {
     if (this.dir) {
       this.write({
         dir: this.dir,
-        type: ERROR,
+        type: Types.ERROR,
         args
       });
     }

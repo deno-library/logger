@@ -4,18 +4,16 @@ import {
   WriterConstructor,
   WriterWrite
 } from './interface.ts';
-import { INFO, WARN, ERROR } from './types.ts';
+import Types from './types.ts';
 
 export default class Writer {
   private maxBytes?: number;
   private maxBackupCount?: number;
   private pathWriterMap = new Map();
 
-  private typePathDict = new Map([
-    [INFO, ''],
-    [WARN, ''],
-    [ERROR, '']
-  ]);
+  private [Types.INFO]: string = '';
+  private [Types.WARN]: string = '';
+  private [Types.ERROR]: string = '';
 
   constructor({ maxBytes, maxBackupCount }: WriterConstructor) {
     if (maxBytes !== undefined && maxBytes <= 0) {
@@ -58,12 +56,12 @@ export default class Writer {
       return;
     }
 
-    const typePath = this.typePathDict.get(type);
+    const typePath = this[type];
     if (typePath) {
       this.pathWriterMap.get(typePath).close();
       this.pathWriterMap.delete(typePath);
     }
-    this.typePathDict.set(type, path);
+    this[type] = path;
 
     const writer = await this.newWriter(path);
     await writer.write(msg);
