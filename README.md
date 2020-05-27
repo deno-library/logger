@@ -51,7 +51,7 @@ logger.info(['i am from fileLogger', 1], { name: 'zfx' });
 interface 
 ```ts
 interface fileLoggerOptions {
-  rotate?: true,  // cut by day, default false
+  rotate?: boolean,  // cut by day
   maxBytes?: number; 
   // Only available if maxBytes is provided, Otherwise you will get an error
   maxBackupCount?: number; 
@@ -129,6 +129,10 @@ await logger.initFileLogger('../log', {
   maxBackupCount: 10 
 });
 
+``` 
+
+The following will throw an error  
+``` 
 // maxBackupCount
 // get error => maxBackupCount must work with maxBytes
 await logger.initFileLogger('../log', {
