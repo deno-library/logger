@@ -1,7 +1,7 @@
 import Logger from "../logger.ts";
 
 const logger = new Logger();
-await logger.initFileLogger('../log');
+await logger.initFileLogger('./log');
 logger.disableConsole();
 
 // file only
