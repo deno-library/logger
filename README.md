@@ -4,8 +4,8 @@ logger for deno
 ## Logger interface
 ```ts
 interface fileLoggerOptions {
-  rotate?: boolean;
-  maxBytes?: number,
+  rotate?: boolean;  // cut by day
+  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
   maxBackupCount?: number // maxBackupCount must work with maxBytes
 }
 
