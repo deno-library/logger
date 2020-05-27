@@ -132,7 +132,7 @@ await logger.initFileLogger('../log', {
 ``` 
 
 The following will throw an error  
-``` 
+```ts 
 // maxBackupCount
 // get error => maxBackupCount must work with maxBytes
 await logger.initFileLogger('../log', {
