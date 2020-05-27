@@ -5,7 +5,7 @@ logger for deno
 
 ### console logger  
 ```js
-import Logger from "../logger.ts";
+import Logger from "https://raw.githubusercontent.com/fuxingZhang/deno-logger/master/logger.ts";
 
 const logger = new Logger();
 
