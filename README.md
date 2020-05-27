@@ -1,6 +1,34 @@
 # deno-logger
 logger for deno
 
+## Logger interface
+```ts
+interface fileLoggerOptions {
+  rotate?: boolean;
+  maxBytes?: number,
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
+}
+
+interface LoggerInerface {
+  constructor() {}
+
+  info(...args: unknown[]): void
+  warn(...args: unknown[]): void
+  error(...args: unknown[]): void
+
+  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
+
+  disableConsole(): void
+  enableConsole(): void
+
+  disableFile(): void;
+  enableFile(): void;
+
+  disable(): void;
+  enable(): void;
+}
+```
+
 ## Useage  
 
 ### console logger  
@@ -196,34 +224,6 @@ await logger.initFileLogger('../log');
 
 logger.disable();
 logger.enable();
-```
-
-## Logger interface
-```ts
-interface fileLoggerOptions {
-  rotate?: boolean;
-  maxBytes?: number,
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
-}
-
-interface LoggerInerface {
-  constructor() {}
-
-  info(...args: unknown[]): void
-  warn(...args: unknown[]): void
-  error(...args: unknown[]): void
-
-  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
-
-  disableConsole(): void
-  enableConsole(): void
-
-  disableFile(): void;
-  enableFile(): void;
-
-  disable(): void;
-  enable(): void;
-}
 ```
 
 ## test
