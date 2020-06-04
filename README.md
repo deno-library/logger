@@ -33,7 +33,7 @@ interface LoggerInerface {
 
 ### console logger  
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 
@@ -45,7 +45,7 @@ logger.error('i am from consoleLogger', new Error('test'));
 ### file and console logger  
 
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 
@@ -65,7 +65,7 @@ logger.error('i am from fileLogger', new Error('test'));
 ### file logger only
 
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
@@ -87,7 +87,7 @@ interface fileLoggerOptions {
 ```
 example
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 const logger = new Logger();
 
 // cut by day
@@ -176,7 +176,7 @@ await logger.initFileLogger('../log', {
 
 ## disableConsole and enableConsole
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 
@@ -192,7 +192,7 @@ logger.info('console enabled, you can see me');
 
 ## disableFile and enableFile
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
@@ -217,7 +217,7 @@ example:
 3. fileLogger, consoleLogger => disable => enable => fileLogger, consoleLogger 
 
 ```js
-import Logger from "https://deno.land/x/logger/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.0/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
