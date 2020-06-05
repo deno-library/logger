@@ -7,7 +7,8 @@ import {
   red,
   green,
   yellow,
-} from "https://deno.land/std@0.50.0/fmt/colors.ts";
+  stripColor
+} from "https://deno.land/std@0.55.0/fmt/colors.ts";
 import {
   fileLoggerOptions,
   LoggerWriteOptions
@@ -37,7 +38,11 @@ export default class Logger {
     //   colors: true,
     //   indentLevel: 2
     // })).join('');
-    return this.encoder.encode(msg + eol);
+    
+    // Wait for deno to support configuring colors parameters
+    const _msg = stripColor(msg);
+    
+    return this.encoder.encode(_msg + eol);
   }
 
   info(...args: unknown[]): void {
