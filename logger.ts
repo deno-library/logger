@@ -1,19 +1,19 @@
-import stdout from './stdout.ts';
-import Writer from './writer.ts';
-import eol from './eol.ts';
-import { exists } from './fs.ts';
-import Dater from './date.ts';
+import stdout from "./stdout.ts";
+import Writer from "./writer.ts";
+import eol from "./eol.ts";
+import { exists } from "./fs.ts";
+import Dater from "./date.ts";
 import {
   red,
   green,
   yellow,
-  stripColor
+  stripColor,
 } from "https://deno.land/std@0.55.0/fmt/colors.ts";
 import {
   fileLoggerOptions,
-  LoggerWriteOptions
-} from './interface.ts';
-import Types from './types.ts';
+  LoggerWriteOptions,
+} from "./interface.ts";
+import Types from "./types.ts";
 const { inspect } = Deno;
 
 const noop = () => void {};
@@ -31,17 +31,17 @@ export default class Logger {
   #write = this.write;
 
   private format(...args: unknown[]): Uint8Array {
-    const msg = args.map(arg => inspect(arg)).join(' ');
+    const msg = args.map((arg) => inspect(arg)).join(" ");
     // const msg = args.map(arg => inspect(arg, {
     //   showHidden: true,
     //   depth: 4,
     //   colors: true,
     //   indentLevel: 2
     // })).join('');
-    
+
     // Wait for deno to support configuring colors parameters
     const _msg = stripColor(msg);
-    
+
     return this.encoder.encode(_msg + eol);
   }
 
@@ -51,7 +51,7 @@ export default class Logger {
       this.write({
         dir: this.dir,
         type: Types.INFO,
-        args
+        args,
       });
     }
   }
@@ -62,7 +62,7 @@ export default class Logger {
       this.write({
         dir: this.dir,
         type: Types.WARN,
-        args
+        args,
       });
     }
   }
@@ -73,7 +73,7 @@ export default class Logger {
       this.write({
         dir: this.dir,
         type: Types.ERROR,
-        args
+        args,
       });
     }
   }
@@ -86,7 +86,10 @@ export default class Logger {
     this.writer!.write({ path, msg, type });
   }
 
-  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void> {
+  async initFileLogger(
+    dir: string,
+    options: fileLoggerOptions = {},
+  ): Promise<void> {
     const exist = await exists(dir);
     if (!exist) {
       stdout(`${this.getWarn()} Log folder does not exist`);
@@ -102,7 +105,7 @@ export default class Logger {
     this.dir = dir;
     this.writer = new Writer({
       maxBytes,
-      maxBackupCount
+      maxBackupCount,
     });
   }
 

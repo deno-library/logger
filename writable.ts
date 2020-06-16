@@ -7,14 +7,14 @@ export default class Writable {
   currentSize = 0;
 
   constructor(path: string) {
-    this.path = path
+    this.path = path;
   }
 
   async setup(): Promise<void> {
     this.file = await open(this.path, {
       create: true,
       append: true,
-      write: true
+      write: true,
     });
     this.currentSize = (await stat(this.path)).size;
   }

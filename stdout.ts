@@ -5,10 +5,10 @@ export async function stdout(msg: Uint8Array): Promise<void> {
 }
 
 export default function log(...args: unknown[]): void {
-  console.log(...args)
+  console.log(...args);
 }
 
-function noop(): void { }
+function noop(): void {}
 
-export const stdoutOnlyTty = isTTY ? stdout : noop
-export const logOnlyTty = isTTY ? log : noop
+export const stdoutOnlyTty = isTTY ? stdout : noop;
+export const logOnlyTty = isTTY ? log : noop;

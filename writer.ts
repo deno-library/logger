@@ -1,19 +1,19 @@
-import Writable from './writable.ts';
-import { exists } from './fs.ts';
+import Writable from "./writable.ts";
+import { exists } from "./fs.ts";
 import {
   WriterConstructor,
-  WriterWrite
-} from './interface.ts';
-import Types from './types.ts';
+  WriterWrite,
+} from "./interface.ts";
+import Types from "./types.ts";
 
 export default class Writer {
   private maxBytes?: number;
   private maxBackupCount?: number;
   private pathWriterMap = new Map();
 
-  private [Types.INFO]: string = '';
-  private [Types.WARN]: string = '';
-  private [Types.ERROR]: string = '';
+  private [Types.INFO]: string = "";
+  private [Types.WARN]: string = "";
+  private [Types.ERROR]: string = "";
 
   constructor({ maxBytes, maxBackupCount }: WriterConstructor) {
     if (maxBytes !== undefined && maxBytes <= 0) {
