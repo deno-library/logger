@@ -8,7 +8,7 @@ import {
   green,
   yellow,
   stripColor,
-} from "https://deno.land/std@0.55.0/fmt/colors.ts";
+} from "./deps.ts";
 import {
   fileLoggerOptions,
   LoggerWriteOptions,
