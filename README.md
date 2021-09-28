@@ -5,6 +5,7 @@ logger for deno
 ```ts
 interface fileLoggerOptions {
   rotate?: boolean;  // cut by day
+  now?: boolean; // print datetime or not
   maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
   maxBackupCount?: number // maxBackupCount must work with maxBytes
 }
