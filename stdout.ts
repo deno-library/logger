@@ -1,7 +1,8 @@
 const isTTY = Deno.isatty(Deno.stdout.rid);
+import { writeAll } from "./deps.ts";
 
 export async function stdout(msg: Uint8Array): Promise<void> {
-  await Deno.writeAll(Deno.stdout, msg);
+  await writeAll(Deno.stdout, msg);
 }
 
 export default function log(...args: unknown[]): void {

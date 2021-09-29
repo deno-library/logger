@@ -1,7 +1,9 @@
 # deno-logger
+
 logger for deno
 
 ## Logger interface
+
 ```ts
 interface fileLoggerOptions {
   rotate?: boolean;  // cut by day
@@ -33,8 +35,9 @@ interface LoggerInerface {
 ## Useage  
 
 ### console logger  
+
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 
@@ -46,7 +49,7 @@ logger.error('i am from consoleLogger', new Error('test'));
 ### file and console logger  
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 
@@ -66,7 +69,7 @@ logger.error('i am from fileLogger', new Error('test'));
 ### file logger only
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
@@ -77,7 +80,9 @@ logger.info(['i am from fileLogger', 1], { name: 'zfx' });
 ```  
 
 ### file logger optional parameter
-interface 
+
+interface  
+
 ```ts
 interface fileLoggerOptions {
   rotate?: boolean,  // cut by day
@@ -86,9 +91,11 @@ interface fileLoggerOptions {
   maxBackupCount?: number; 
 }
 ```
+
 example
+
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 const logger = new Logger();
 
 // cut by day
@@ -158,10 +165,11 @@ await logger.initFileLogger('../log', {
   maxBackupCount: 10 
 });
 
-``` 
+```
 
 The following conditions will throw an error  
-```ts 
+
+```ts
 // maxBackupCount
 // get error => maxBackupCount must work with maxBytes
 await logger.initFileLogger('../log', {
@@ -176,8 +184,9 @@ await logger.initFileLogger('../log', {
 ```  
 
 ## disableConsole and enableConsole
+
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 
@@ -192,8 +201,9 @@ logger.info('console enabled, you can see me');
 ```
 
 ## disableFile and enableFile
+
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
@@ -207,18 +217,20 @@ logger.info('file enabled, you can see me');
 ```
 
 ## disable and enable
+
 * disable
 disable write to file and terminal, don't care if it is currently writing to a file or terminal, but hope to restore the currently configuration later
 * enable
 restore previous log configuration: file, terminal or both
 
 example:
-1. fileLogger => disable => enable => fileLogger 
-2. consoleLogger => disable => enable => consoleLogger 
-3. fileLogger, consoleLogger => disable => enable => fileLogger, consoleLogger 
+
+1. fileLogger => disable => enable => fileLogger
+2. consoleLogger => disable => enable => consoleLogger
+3. fileLogger, consoleLogger => disable => enable => fileLogger, consoleLogger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.0.1/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.0.2/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger('../log');
@@ -228,6 +240,7 @@ logger.enable();
 ```
 
 ## test
+
 ```bash
 deno test --allow-read --allow-write
 ```
@@ -238,7 +251,7 @@ consoleLogger
 ![consoleLogger](./screenshots/consoleLogger.png)  
 
 fileLogger  
-![fileLogger](./screenshots/fileLogger.png) 
+![fileLogger](./screenshots/fileLogger.png)
 
 cut logs by day  
 ![CutByDay](./screenshots/fileLogger.rotate.png)  

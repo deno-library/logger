@@ -3,16 +3,8 @@ import Writer from "./writer.ts";
 import eol from "./eol.ts";
 import { exists } from "./fs.ts";
 import Dater from "./date.ts";
-import {
-  red,
-  green,
-  yellow,
-  stripColor,
-} from "./deps.ts";
-import {
-  fileLoggerOptions,
-  LoggerWriteOptions,
-} from "./interface.ts";
+import { green, red, stripColor, yellow } from "./deps.ts";
+import { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
 import Types from "./types.ts";
 const { inspect } = Deno;
 
@@ -83,7 +75,9 @@ export default class Logger {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
-    const msg = this.now === true ? this.format(`[${this.getNow()}]`, ...args) : this.format(...args) ;
+    const msg = this.now === true
+      ? this.format(`[${this.getNow()}]`, ...args)
+      : this.format(...args);
     this.writer!.write({ path, msg, type });
   }
 
@@ -98,7 +92,7 @@ export default class Logger {
         await Deno.mkdirSync(dir, { recursive: true });
         stdout(`${this.getInfo()} Log folder create success`);
       } catch (error) {
-        stdout(`${this.getError()} Log folder create failed`);
+        stdout(`${this.getError()} Log folder create failed: ` + error);
       }
     }
     const { rotate, maxBytes, maxBackupCount, now } = options;

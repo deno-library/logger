@@ -1,6 +1,7 @@
 export {
-  red,
   green,
-  yellow,
+  red,
   stripColor,
-} from "https://deno.land/std@0.61.0/fmt/colors.ts";
+  yellow,
+} from "https://deno.land/std@0.109.0/fmt/colors.ts";
+export { writeAll } from "https://deno.land/std@0.109.0/io/util.ts";

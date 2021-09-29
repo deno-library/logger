@@ -1,3 +1,5 @@
+import { writeAll } from "./deps.ts";
+
 const { open, close, stat } = Deno;
 type File = Deno.File;
 
@@ -20,7 +22,7 @@ export default class Writable {
   }
 
   async write(msg: Uint8Array): Promise<void> {
-    await Deno.writeAll(this.file, msg);
+    await writeAll(this.file, msg);
     this.currentSize += msg.byteLength;
   }
 
