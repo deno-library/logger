@@ -23,6 +23,7 @@ export default class Logger {
   private encoder = new TextEncoder();
   private writer?: Writer;
   private rotate = false;
+  private now = true;
   private dir?: string;
 
   #info = this.info;
@@ -82,7 +83,7 @@ export default class Logger {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
-    const msg = this.format(`[${this.getNow()}]`, ...args);
+    const msg = this.now === true ? this.format(`[${this.getNow()}]`, ...args) : this.format(...args) ;
     this.writer!.write({ path, msg, type });
   }
 
@@ -100,8 +101,9 @@ export default class Logger {
         stdout(`${this.getError()} Log folder create failed`);
       }
     }
-    const { rotate, maxBytes, maxBackupCount } = options;
+    const { rotate, maxBytes, maxBackupCount, now } = options;
     if (rotate === true) this.rotate = true;
+    if (now === false) this.now = false;
     this.dir = dir;
     this.writer = new Writer({
       maxBytes,
