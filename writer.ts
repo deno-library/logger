@@ -58,7 +58,8 @@ export default class Writer {
 
     const typePath = this[type];
     if (typePath) {
-      this.pathWriterMap.get(typePath).close();
+      const pathWriter = this.pathWriterMap.get(typePath)
+      if( pathWriter  && pathWriter.close ) pathWriter.close();
       this.pathWriterMap.delete(typePath);
     }
     this[type] = path;
