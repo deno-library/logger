@@ -1,7 +1,7 @@
 import { writeAll } from "./deps.ts";
 
 const { open, close, stat } = Deno;
-type File = Deno.File;
+type File = Deno.FsFile;
 
 export default class Writable {
   protected file!: File;
