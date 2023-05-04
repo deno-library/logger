@@ -13,7 +13,7 @@ export interface WriterWrite {
 
 export interface fileLoggerOptions extends WriterConstructor {
   rotate?: boolean;
-  now?: boolean;
+  time?: boolean;
 }
 
 export interface LoggerWriteOptions {
