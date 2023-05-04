@@ -15,7 +15,6 @@ export default class Logger {
   private encoder = new TextEncoder();
   private writer?: Writer;
   private rotate = false;
-  private time = true;
   private dir?: string;
 
   #info = this.info;
@@ -24,7 +23,8 @@ export default class Logger {
   #write = this.write;
 
   private format(...args: unknown[]): Uint8Array {
-    const msg = args.map((arg) => inspect(arg)).join(" ");
+    const msg = args.map((arg) => typeof arg === "string" ? arg : inspect(arg))
+      .join(" ");
     // const msg = args.map(arg => inspect(arg, {
     //   showHidden: true,
     //   depth: 4,
@@ -32,14 +32,12 @@ export default class Logger {
     //   indentLevel: 2
     // })).join('');
 
-    // Wait for deno to support configuring colors parameters
-    const _msg = stripColor(msg);
-
-    return this.encoder.encode(_msg + eol);
+    return this.encoder.encode(stripColor(msg) + eol);
   }
 
   info(...args: unknown[]): void {
-    this.stdout(this.getInfo(), ...args);
+    args = [this.getInfo(), ...args];
+    this.stdout(...args);
     if (this.dir) {
       this.write({
         dir: this.dir,
@@ -50,7 +48,8 @@ export default class Logger {
   }
 
   warn(...args: unknown[]): void {
-    this.stdout(this.getWarn(), ...args);
+    args = [this.getWarn(), ...args];
+    this.stdout(...args);
     if (this.dir) {
       this.write({
         dir: this.dir,
@@ -61,7 +60,8 @@ export default class Logger {
   }
 
   error(...args: unknown[]): void {
-    this.stdout(this.getError(), ...args);
+    args = [this.getError(), ...args];
+    this.stdout(...args);
     if (this.dir) {
       this.write({
         dir: this.dir,
@@ -75,9 +75,7 @@ export default class Logger {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
-    const msg = this.time === true
-      ? this.format(`[${this.getNow()}]`, ...args)
-      : this.format(...args);
+    const msg = this.format(...args);
     this.writer!.write({ path, msg, type });
   }
 
@@ -95,9 +93,8 @@ export default class Logger {
         stdout(`${this.getError()} Log folder create failed: ` + error);
       }
     }
-    const { rotate, maxBytes, maxBackupCount, time } = options;
+    const { rotate, maxBytes, maxBackupCount } = options;
     if (rotate === true) this.rotate = true;
-    if (time === false) this.time = false;
     this.dir = dir;
     this.writer = new Writer({
       maxBytes,

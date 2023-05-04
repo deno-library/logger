@@ -6,13 +6,12 @@ logger for deno
 
 ### v1.1.0 - 2023.05.04
 
-Optimization parameter name
+Remove useless parameter and optimize fileLogger
 
 ```diff
 interface fileLoggerOptions {
   rotate?: boolean;  // cut by day
 - now?: boolean; // print datetime or not
-+ time?: boolean; // print datetime or not
   maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
   maxBackupCount?: number // maxBackupCount must work with maxBytes
 }
@@ -27,13 +26,12 @@ interface fileLoggerOptions {
 ```ts
 interface fileLoggerOptions {
   rotate?: boolean;  // cut by day
-  time?: boolean; // print datetime or not
   maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
   maxBackupCount?: number // maxBackupCount must work with maxBytes
 }
 
 interface LoggerInerface {
-  constructor() {}
+  constructor()
 
   info(...args: unknown[]): void
   warn(...args: unknown[]): void
