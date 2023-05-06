@@ -142,8 +142,8 @@ await logger.initFileLogger("../log", {
 // filename is [type].log.[n]
 // example info.log.1, info.log.2 ...
 // when reach maxBackupCount, the [type].log.[maxBackupCount-1] will be overwrite
-/* 
- detail: 
+/*
+ detail:
 `maxBytes` specifies the maximum size
 in bytes that the log file can grow to before rolling over to a new one. If the
 size of the new log message plus the current log file size exceeds `maxBytes`
@@ -235,10 +235,10 @@ logger.info("file enabled, you can see me");
 
 ## disable and enable
 
-- disable
-  disable write to file and terminal, don't care if it is currently writing to a file or terminal, but hope to restore the currently configuration later
-- enable
-  restore previous log configuration: file, terminal or both
+- disable disable write to file and terminal, don't care if it is currently
+  writing to a file or terminal, but hope to restore the currently configuration
+  later
+- enable restore previous log configuration: file, terminal or both
 
 example:
 
@@ -264,13 +264,13 @@ deno test --allow-read --allow-write
 
 ## Screenshots
 
-consoleLogger  
+consoleLogger\
 ![consoleLogger](./screenshots/consoleLogger.png)
 
-fileLogger  
+fileLogger\
 ![fileLogger](./screenshots/fileLogger.png)
 
-cut logs by day  
+cut logs by day\
 ![CutByDay](./screenshots/fileLogger.rotate.png)
 
 More screenshots in the `screenshots` folder.
