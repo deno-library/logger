@@ -2,54 +2,6 @@
 
 logger for deno
 
-## Update
-
-### v1.1.0 - 2023.05.04
-
-Remove useless parameter and optimize fileLogger
-
-```diff
-interface fileLoggerOptions {
-  rotate?: boolean;  // cut by day
-- now?: boolean; // print datetime or not
-  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
-}
-```
-
-### v1.0.3 - 2023.05.04
-
-[update code to support modern Deno](https://github.com/deno-library/logger/pull/4).
-
-## Logger interface
-
-```ts
-interface fileLoggerOptions {
-  rotate?: boolean;  // cut by day
-  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
-}
-
-interface LoggerInerface {
-  constructor()
-
-  info(...args: unknown[]): void
-  warn(...args: unknown[]): void
-  error(...args: unknown[]): void
-
-  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
-
-  disableConsole(): void
-  enableConsole(): void
-
-  disableFile(): void;
-  enableFile(): void;
-
-  disable(): void;
-  enable(): void;
-}
-```
-
 ## Useage
 
 ### console logger
@@ -274,3 +226,51 @@ cut logs by day\
 ![CutByDay](./screenshots/fileLogger.rotate.png)
 
 More screenshots in the `screenshots` folder.
+
+## Changelog
+
+### v1.1.0 - 2023.05.04
+
+Remove useless parameter and optimize fileLogger
+
+```diff
+interface fileLoggerOptions {
+  rotate?: boolean;  // cut by day
+- now?: boolean; // print datetime or not
+  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
+}
+```
+
+### v1.0.3 - 2023.05.04
+
+[update code to support modern Deno](https://github.com/deno-library/logger/pull/4).
+
+## Logger interface
+
+```ts
+interface fileLoggerOptions {
+  rotate?: boolean;  // cut by day
+  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
+}
+
+interface LoggerInerface {
+  constructor()
+
+  info(...args: unknown[]): void
+  warn(...args: unknown[]): void
+  error(...args: unknown[]): void
+
+  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
+
+  disableConsole(): void
+  enableConsole(): void
+
+  disableFile(): void;
+  enableFile(): void;
+
+  disable(): void;
+  enable(): void;
+}
+```
