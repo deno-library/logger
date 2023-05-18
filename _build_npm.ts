@@ -1,5 +1,6 @@
-import { build, emptyDir } from "./dev_deps.ts";
-// check version here: https://www.npmjs.com/package/midjourney-discord-api
+// dnt deps can not be moved to dev_deps.ts
+import { build, emptyDir } from "https://deno.land/x/dnt@0.35.0/mod.ts";
+
 // deno run -A _build.ts 0.0.0;
 // cd npm; npm publish;
 // initial version will be v1.1.0
@@ -94,7 +95,7 @@ async function buildDnt() {
     });
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
     let readme = Deno.readTextFileSync("README.md");
-    readme = readme.replaceAll(/https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/, '@denodnt/logger')
+    readme = readme.replaceAll(/https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g, '@denodnt/logger')
     // readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
     readme = readme.replaceAll('logger for deno', '* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) deno / nodeJS colorful logger')
     Deno.writeTextFileSync("npm/README.md", readme);
