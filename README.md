@@ -2,54 +2,6 @@
 
 logger for deno
 
-## Update
-
-### v1.1.0 - 2023.05.04
-
-Remove useless parameter and optimize fileLogger
-
-```diff
-interface fileLoggerOptions {
-  rotate?: boolean;  // cut by day
-- now?: boolean; // print datetime or not
-  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
-}
-```
-
-### v1.0.3 - 2023.05.04
-
-[update code to support modern Deno](https://github.com/deno-library/logger/pull/4).
-
-## Logger interface
-
-```ts
-interface fileLoggerOptions {
-  rotate?: boolean;  // cut by day
-  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
-}
-
-interface LoggerInerface {
-  constructor()
-
-  info(...args: unknown[]): void
-  warn(...args: unknown[]): void
-  error(...args: unknown[]): void
-
-  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
-
-  disableConsole(): void
-  enableConsole(): void
-
-  disableFile(): void;
-  enableFile(): void;
-
-  disable(): void;
-  enable(): void;
-}
-```
-
 ## Useage
 
 ### console logger
@@ -142,8 +94,8 @@ await logger.initFileLogger("../log", {
 // filename is [type].log.[n]
 // example info.log.1, info.log.2 ...
 // when reach maxBackupCount, the [type].log.[maxBackupCount-1] will be overwrite
-/* 
- detail: 
+/*
+ detail:
 `maxBytes` specifies the maximum size
 in bytes that the log file can grow to before rolling over to a new one. If the
 size of the new log message plus the current log file size exceeds `maxBytes`
@@ -235,10 +187,10 @@ logger.info("file enabled, you can see me");
 
 ## disable and enable
 
-- disable
-  disable write to file and terminal, don't care if it is currently writing to a file or terminal, but hope to restore the currently configuration later
-- enable
-  restore previous log configuration: file, terminal or both
+- disable disable write to file and terminal, don't care if it is currently
+  writing to a file or terminal, but hope to restore the currently configuration
+  later
+- enable restore previous log configuration: file, terminal or both
 
 example:
 
@@ -264,13 +216,61 @@ deno test --allow-read --allow-write
 
 ## Screenshots
 
-consoleLogger  
-![consoleLogger](./screenshots/consoleLogger.png)
+consoleLogger\
+![consoleLogger](https://github.com/deno-library/logger/blob/master/screenshots/consoleLogger.png)
 
-fileLogger  
-![fileLogger](./screenshots/fileLogger.png)
+fileLogger\
+![fileLogger](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.png)
 
-cut logs by day  
-![CutByDay](./screenshots/fileLogger.rotate.png)
+cut logs by day\
+![CutByDay](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.rotate.png)
 
 More screenshots in the `screenshots` folder.
+
+## Changelog
+
+### v1.1.0 - 2023.05.04
+
+Remove useless parameter and optimize fileLogger
+
+```diff
+interface fileLoggerOptions {
+  rotate?: boolean;  // cut by day
+- now?: boolean; // print datetime or not
+  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
+}
+```
+
+### v1.0.3 - 2023.05.04
+
+[update code to support modern Deno](https://github.com/deno-library/logger/pull/4).
+
+## Logger interface
+
+```ts
+interface fileLoggerOptions {
+  rotate?: boolean;  // cut by day
+  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
+  maxBackupCount?: number // maxBackupCount must work with maxBytes
+}
+
+interface LoggerInerface {
+  constructor()
+
+  info(...args: unknown[]): void
+  warn(...args: unknown[]): void
+  error(...args: unknown[]): void
+
+  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
+
+  disableConsole(): void
+  enableConsole(): void
+
+  disableFile(): void;
+  enableFile(): void;
+
+  disable(): void;
+  enable(): void;
+}
+```
