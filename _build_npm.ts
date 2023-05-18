@@ -79,7 +79,6 @@ async function buildDnt() {
     },
   };
 
-
   try {
     await emptyDir("./npm");
     await build({
@@ -95,6 +94,7 @@ async function buildDnt() {
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
     let readme = Deno.readTextFileSync("README.md");
     readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
+    readme = readme.replaceAll('logger for deno', '* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) deno / nodeJS colorful logger')
     Deno.writeTextFileSync("npm/README.md", readme);
   } catch (e) {
     console.error(e);
