@@ -217,13 +217,13 @@ deno test --allow-read --allow-write
 ## Screenshots
 
 consoleLogger\
-![consoleLogger](./screenshots/consoleLogger.png)
+![consoleLogger](https://github.com/deno-library/logger/blob/master/screenshots/consoleLogger.png)
 
 fileLogger\
-![fileLogger](./screenshots/fileLogger.png)
+![fileLogger](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.png)
 
 cut logs by day\
-![CutByDay](./screenshots/fileLogger.rotate.png)
+![CutByDay](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.rotate.png)
 
 More screenshots in the `screenshots` folder.
 
