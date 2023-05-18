@@ -48,6 +48,7 @@ interface PackageJson {
   /**
    * rest of the fields
    */
+  // deno-lint-ignore no-explicit-any
   [propertyName: string]: any;
 }
 
