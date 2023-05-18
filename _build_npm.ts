@@ -98,7 +98,7 @@ async function buildDnt() {
     let readme = Deno.readTextFileSync("README.md");
     readme = readme.replaceAll(/https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g, '@denodnt/logger')
     // readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
-    readme = readme.replaceAll('logger for deno', `* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) Neno / NodeJS colorful logger colorful logger
+    readme = readme.replaceAll('logger for deno', `* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) Deno / NodeJS colorful logger colorful logger
 
 For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`)
     Deno.writeTextFileSync("npm/README.md", readme);
