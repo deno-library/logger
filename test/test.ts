@@ -3,7 +3,7 @@ import {
   assert,
   assertEquals,
   assertRejects,
-} from "https://deno.land/std@0.186.0/testing/asserts.ts";
+} from "../dev_deps.ts";
 import Logger from "../logger.ts";
 
 const maxBytesError = "maxBytes cannot be less than 1";
