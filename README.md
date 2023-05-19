@@ -214,6 +214,44 @@ logger.enable();
 deno test --allow-read --allow-write
 ```
 
+## Dual-Stack Triple-Stack intergration
+
+A dual-stack project is generaly a npm project that can be import as commonJS module or as ESM module; So if a project can also be import as a Deno module, it's a triple-stack one.
+
+To convert your Deno project to a dual-stack npm project, you should use [deno/dnt](https://deno.land/x/dnt), then create a `_build_npm.ts` or `scripts/build_npm.ts` that looks like:
+
+```ts
+import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
+
+// grap the next version number as you want
+const version: Deno.args[0];
+await emptyDir("./npm");
+await build({
+  entryPoints: ["./mod.ts"],
+  outDir: "./npm",
+  shims: {
+    deno: true,
+  },
+  compilerOptions: { 
+    lib: ["dom", "esnext"],
+  },
+  package: {
+    name: "pkg-name",
+    version: version,
+    // ... package stuff
+  },
+  // map your favarite deno logger to it's npm port.
+  mappings: {
+    "https://deno.land/x/logger@v1.2.0/logger.ts": {
+      name: "@denodnt/logger",
+      version: "1.2.0",
+      peerDependency: false,
+    },
+  },
+});
+
+```
+
 ## Screenshots
 
 consoleLogger\

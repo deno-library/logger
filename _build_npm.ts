@@ -10,29 +10,27 @@ if (!Deno.args[0]) {
   Deno.exit(-1);
 }
 
-type SPDXLicenseIdentifier = "MIT" | string; // could be more specific if you enumerate all valid SPDX identifiers.
-
-interface Person {
+interface PackageJsonPerson {
   name: string;
   email?: string;
   url?: string;
 }
 
-interface Bugs {
+interface PackageJsonBugs {
   url?: string;
   email?: string;
 }
 
-interface PackageJson {
+interface PackageJsonObject {
   name: string;
   version: string;
   description?: string;
   keywords?: string[];
   homepage?: string;
-  bugs?: Bugs | string;
-  license?: SPDXLicenseIdentifier | 'UNLICENSED' | 'SEE LICENSE IN <filename>';
-  author?: Person | string;
-  contributors?: (Person | string)[];
+  bugs?: PackageJsonBugs | string;
+  license?: "MIT" | string | 'UNLICENSED' | 'SEE LICENSE IN <filename>';
+  author?: PackageJsonPerson | string;
+  contributors?: (PackageJsonPerson | string)[];
   main?: string;
   types?: string;
   scripts?: { [key: string]: string };
@@ -55,7 +53,7 @@ interface PackageJson {
 
 async function buildDnt() {
   const version =  Deno.args[0];
-  const packageJson: PackageJson = {
+  const packageJson: PackageJsonObject = {
     name: "@denodnt/logger",
     author:
       "zfx",
