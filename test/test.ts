@@ -1,9 +1,5 @@
 const { test } = Deno;
-import {
-  assert,
-  assertEquals,
-  assertRejects,
-} from "../dev_deps.ts";
+import { assert, assertEquals, assertRejects } from "../dev_deps.ts";
 import Logger from "../logger.ts";
 
 const maxBytesError = "maxBytes cannot be less than 1";

@@ -30,13 +30,7 @@ async function buildDnt() {
   }
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
-    console.error(
-      `version number ${pc.green(
-        version
-      )} do not match Semantic Versioning syntax ${pc.green(
-        "major.minor.path"
-      )}`
-    );
+    console.error(`version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`);
     Deno.exit(-1);
   }
 
@@ -79,16 +73,6 @@ async function buildDnt() {
     /https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g,
     "@denodnt/logger"
   );
-  readme = readme.replaceAll(
-    "https://deno.land/x/logger@v1.1.0/logger.ts",
-    "@denodnt/logger"
-  );
-  //  readme = readme.replaceAll(
-  //    "logger for deno",
-  //    `* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) Deno / NodeJS colorful logger colorful logger
-  //
-  //For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`
-  //  );
   Deno.writeTextFileSync("npm/README.md", readme);
 }
 
