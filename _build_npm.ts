@@ -5,7 +5,6 @@ import * as pc from "https://deno.land/std@0.188.0/fmt/colors.ts";
 // cd npm; npm publish;
 // initial version will be v1.1.0
 
-
 interface PackageJsonPerson {
   name: string;
   email?: string;
@@ -24,13 +23,13 @@ interface PackageJsonObject {
   keywords?: string[];
   homepage?: string;
   bugs?: PackageJsonBugs | string;
-  license?: "MIT" | string | 'UNLICENSED' | 'SEE LICENSE IN <filename>';
+  license?: "MIT" | string | "UNLICENSED" | "SEE LICENSE IN <filename>";
   author?: PackageJsonPerson | string;
   contributors?: (PackageJsonPerson | string)[];
   main?: string;
   types?: string;
   scripts?: { [key: string]: string };
-  repository?: { type: string, url: string };
+  repository?: { type: string; url: string };
   dependencies?: { [packageName: string]: string };
   devDependencies?: { [packageName: string]: string };
   peerDependencies?: { [packageName: string]: string };
@@ -48,13 +47,13 @@ interface PackageJsonObject {
 }
 
 async function buildDnt() {
-  let version = Deno.args[0] ;
-  const GITHUB_REF = Deno.env.get('GITHUB_REF')
+  let version = Deno.args[0];
+  const GITHUB_REF = Deno.env.get("GITHUB_REF");
 
   if (!version && GITHUB_REF) {
     // drop the ref/tag/ and the v prefix
     console.log(`GITHUB_REF values is ${pc.green(GITHUB_REF)}`);
-    version = GITHUB_REF.replace(/^.+\/[vV]?/g, '');
+    version = GITHUB_REF.replace(/^.+\/[vV]?/g, "");
   }
 
   if (!version) {
@@ -64,14 +63,19 @@ async function buildDnt() {
   }
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
-    console.error(`version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`);
+    console.error(
+      `version number ${
+        pc.green(version)
+      } do not match Semantic Versioning syntax ${
+        pc.green("major.minor.path")
+      }`,
+    );
     Deno.exit(-1);
   }
 
   const packageJson: PackageJsonObject = {
     name: "@denodnt/logger",
-    author:
-      "zfx",
+    author: "zfx",
     license: "MIT",
     contributors: [
       "fuxing Zhang <fuxing.zhang@qq.com> (https://github.com/fuxingZhang)",
@@ -102,18 +106,23 @@ async function buildDnt() {
       shims: {
         deno: true,
       },
-      compilerOptions: {
-      },
+      compilerOptions: {},
       package: packageJson,
       // scriptModule: false,
     });
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
     let readme = Deno.readTextFileSync("README.md");
-    readme = readme.replaceAll(/https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g, '@denodnt/logger')
+    readme = readme.replaceAll(
+      /https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g,
+      "@denodnt/logger",
+    );
     // readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
-    readme = readme.replaceAll('logger for deno', `* [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger) Deno / NodeJS colorful logger colorful logger
-
-For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`)
+    // readme = readme.replaceAll(
+    //   "Deno / NodeJS colorful logger colorful logger",
+    //   `Deno / NodeJS colorful logger colorful logger
+    //
+    // For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`,
+    // );
     Deno.writeTextFileSync("npm/README.md", readme);
   } catch (e) {
     console.error(e);

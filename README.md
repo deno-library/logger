@@ -1,6 +1,10 @@
 # deno-logger
 
-logger for deno
+[![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger)
+Deno / NodeJS colorful logger colorful logger
+
+For Deno usage refer to
+[deno-logger doc](https://deno.land/x/logger@v${version})
 
 ## Useage
 
@@ -216,9 +220,13 @@ deno test --allow-read --allow-write
 
 ## Dual-Stack / Triple-Stack integration
 
-A dual-stack project is generaly a npm project that can be import as commonJS module or as ESM module; So if a project can also be import as a Deno module, it's a triple-stack one.
+A dual-stack project is generaly a npm project that can be import as commonJS
+module or as ESM module; So if a project can also be import as a Deno module,
+it's a triple-stack one.
 
-To convert your Deno project to a dual-stack npm project, you should use [deno/dnt](https://deno.land/x/dnt), then create a `_build_npm.ts` or `scripts/build_npm.ts` that looks like:
+To convert your Deno project to a dual-stack npm project, you should use
+[deno/dnt](https://deno.land/x/dnt), then create a `_build_npm.ts` or
+`scripts/build_npm.ts` that looks like:
 
 ```ts
 import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
@@ -232,7 +240,7 @@ await build({
   shims: {
     deno: true,
   },
-  compilerOptions: { 
+  compilerOptions: {
     lib: ["dom", "esnext"],
   },
   package: {
@@ -249,7 +257,6 @@ await build({
     },
   },
 });
-
 ```
 
 ## Screenshots
