@@ -214,7 +214,7 @@ logger.enable();
 deno test --allow-read --allow-write
 ```
 
-## Dual-Stack Triple-Stack intergration
+## Dual-Stack / Triple-Stack integration
 
 A dual-stack project is generaly a npm project that can be import as commonJS module or as ESM module; So if a project can also be import as a Deno module, it's a triple-stack one.
 
@@ -240,7 +240,7 @@ await build({
     version: version,
     // ... package stuff
   },
-  // map your favarite deno logger to it's npm port.
+  // map your favorite deno logger to its npm port.
   mappings: {
     "https://deno.land/x/logger@v1.2.0/logger.ts": {
       name: "@denodnt/logger",
