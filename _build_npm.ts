@@ -1,14 +1,10 @@
 // dnt deps can not be moved to dev_deps.ts
 import { build, emptyDir } from "https://deno.land/x/dnt@0.35.0/mod.ts";
-
+import * as pc from "https://deno.land/std@0.188.0/fmt/colors.ts";
 // deno run -A _build.ts 0.0.0;
 // cd npm; npm publish;
 // initial version will be v1.1.0
-if (!Deno.args[0]) {
-  console.error("Missing version number");
-  console.error("usage: deno run -A _build_npm.ts 0.0.0");
-  Deno.exit(-1);
-}
+
 
 interface PackageJsonPerson {
   name: string;
@@ -52,7 +48,26 @@ interface PackageJsonObject {
 }
 
 async function buildDnt() {
-  const version =  Deno.args[0];
+  let version = Deno.args[0] ;
+  const GITHUB_REF = Deno.env.get('GITHUB_REF')
+
+  if (!version && GITHUB_REF) {
+    // drop the ref/tag/ and the v prefix
+    console.log(`GITHUB_REF values is ${pc.green(GITHUB_REF)}`);
+    version = GITHUB_REF?.replaceAll(/^.+\/[vV]?/, '');
+  }
+
+  if (!version) {
+    console.error("Missing version number");
+    console.error("usage: deno run -A _build_npm.ts 0.0.0");
+    Deno.exit(-1);
+  }
+  // allow only semver string
+  if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
+    console.error(`version number ${pc.green(version)} do not match common version number major.minor.path`);
+    Deno.exit(-1);
+  }
+
   const packageJson: PackageJsonObject = {
     name: "@denodnt/logger",
     author:

@@ -37,4 +37,4 @@ jobs:
         run: deno test -A
 
       - name: Run dnt
-        run: deno run -A _build_npm.ts 0.0.0
+        run: deno run -A _build_npm.ts
