@@ -1,50 +1,7 @@
 // dnt deps can not be moved to dev_deps.ts
 import { build, emptyDir } from "https://deno.land/x/dnt@0.35.0/mod.ts";
 import * as pc from "https://deno.land/std@0.188.0/fmt/colors.ts";
-// deno run -A _build.ts 0.0.0;
-// cd npm; npm publish;
-// initial version will be v1.1.0
-
-interface PackageJsonPerson {
-  name: string;
-  email?: string;
-  url?: string;
-}
-
-interface PackageJsonBugs {
-  url?: string;
-  email?: string;
-}
-
-interface PackageJsonObject {
-  name: string;
-  version: string;
-  description?: string;
-  keywords?: string[];
-  homepage?: string;
-  bugs?: PackageJsonBugs | string;
-  license?: "MIT" | string | "UNLICENSED" | "SEE LICENSE IN <filename>";
-  author?: PackageJsonPerson | string;
-  contributors?: (PackageJsonPerson | string)[];
-  main?: string;
-  types?: string;
-  scripts?: { [key: string]: string };
-  repository?: { type: string; url: string };
-  dependencies?: { [packageName: string]: string };
-  devDependencies?: { [packageName: string]: string };
-  peerDependencies?: { [packageName: string]: string };
-  bundleDependencies?: { [packageName: string]: string };
-  optionalDependencies?: { [packageName: string]: string };
-  engines?: { [engineName: string]: string };
-  os?: string[];
-  cpu?: string[];
-  private?: boolean;
-  /**
-   * rest of the fields
-   */
-  // deno-lint-ignore no-explicit-any
-  [propertyName: string]: any;
-}
+import { PackageJsonObject } from "https://deno.land/x/dnt@0.35.0/lib/types.ts";
 
 async function buildDnt() {
   let version = Deno.args[0];
@@ -98,34 +55,30 @@ async function buildDnt() {
     },
   };
 
-  try {
-    await emptyDir("./npm");
-    await build({
-      entryPoints: ["./mod.ts"],
-      outDir: "./npm",
-      shims: {
-        deno: true,
-      },
-      compilerOptions: {},
-      package: packageJson,
-      // scriptModule: false,
-    });
-    Deno.copyFileSync("LICENSE", "npm/LICENSE");
-    let readme = Deno.readTextFileSync("README.md");
-    readme = readme.replaceAll(
-      /https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g,
-      "@denodnt/logger",
-    );
-    // readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
-    // readme = readme.replaceAll(
-    //   "Deno / NodeJS colorful logger colorful logger",
-    //   `Deno / NodeJS colorful logger colorful logger
-    //
-    // For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`,
-    // );
-    Deno.writeTextFileSync("npm/README.md", readme);
-  } catch (e) {
-    console.error(e);
-  }
+  await emptyDir("./npm");
+  await build({
+    entryPoints: ["./mod.ts"],
+    outDir: "./npm",
+    shims: {
+      deno: true,
+    },
+    compilerOptions: {},
+    package: packageJson,
+    // scriptModule: false,
+  });
+  Deno.copyFileSync("LICENSE", "npm/LICENSE");
+  let readme = Deno.readTextFileSync("README.md");
+  readme = readme.replaceAll(
+    /https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g,
+    "@denodnt/logger",
+  );
+  // readme = readme.replaceAll('https://deno.land/x/logger@v1.1.0/logger.ts', '@denodnt/logger')
+  // readme = readme.replaceAll(
+  //   "Deno / NodeJS colorful logger colorful logger",
+  //   `Deno / NodeJS colorful logger colorful logger
+  //
+  // For Deno usage refer to [deno-logger doc](https://deno.land/x/logger@v${version})`,
+  // );
+  Deno.writeTextFileSync("npm/README.md", readme);
 }
 buildDnt();
