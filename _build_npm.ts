@@ -16,9 +16,11 @@ async function buildDnt() {
       // drop the ref/tag/ and the v prefix
       version = GITHUB_REF.replace(/^.+\/[vV]?/g, "");
       console.log(
-        `GITHUB_REF values is ${pc.green(
-          GITHUB_REF
-        )} will be used as version: ${pc.green(version)}`
+        `GITHUB_REF values is ${
+          pc.green(
+            GITHUB_REF,
+          )
+        } will be used as version: ${pc.green(version)}`,
       );
     }
   }
@@ -30,7 +32,13 @@ async function buildDnt() {
   }
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
-    console.error(`version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`);
+    console.error(
+      `version number ${
+        pc.green(version)
+      } do not match Semantic Versioning syntax ${
+        pc.green("major.minor.path")
+      }`,
+    );
     Deno.exit(-1);
   }
 
@@ -71,7 +79,7 @@ async function buildDnt() {
   let readme = Deno.readTextFileSync("README.md");
   readme = readme.replaceAll(
     /https:\/\/deno.land\/x\/logger@v[0-9.]+\/(logger|mod)\.ts/g,
-    "@denodnt/logger"
+    "@denodnt/logger",
   );
   Deno.writeTextFileSync("npm/README.md", readme);
 }
