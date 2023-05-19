@@ -64,7 +64,7 @@ async function buildDnt() {
   }
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
-    console.error(`version number ${pc.green(version)} do not match common version number major.minor.path`);
+    console.error(`version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`);
     Deno.exit(-1);
   }
 
