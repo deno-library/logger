@@ -54,7 +54,7 @@ async function buildDnt() {
   if (!version && GITHUB_REF) {
     // drop the ref/tag/ and the v prefix
     console.log(`GITHUB_REF values is ${pc.green(GITHUB_REF)}`);
-    version = GITHUB_REF?.replaceAll(/^.+\/[vV]?/, '');
+    version = GITHUB_REF.replace(/^.+\/[vV]?/g, '');
   }
 
   if (!version) {
