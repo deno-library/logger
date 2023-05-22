@@ -102,16 +102,45 @@ export default class Logger {
     });
   }
 
-  disable(): void {
-    this.info = noop;
-    this.warn = noop;
-    this.error = noop;
+  disable(type?: "info" | "warn" | "error"): void {
+    if (!type) {
+      this.info = noop;
+      this.warn = noop;
+      this.error = noop;
+      return;
+    }
+    if (type === "info") {
+      this.info = noop;
+      return;
+    }
+    if (type === "warn") {
+      this.warn = noop;
+      return;
+    }
+    if (type === "error") {
+      this.error = noop;
+      return;
+    }
   }
 
-  enable(): void {
-    this.info = this.#info;
-    this.warn = this.#warn;
-    this.error = this.#error;
+  enable(type?: "info" | "warn" | "error"): void {
+    if (!type) {
+      this.info = this.#info;
+      this.warn = this.#warn;
+      this.error = this.#error;
+    }
+    if (type === "info") {
+      this.info = this.#info;
+      return;
+    }
+    if (type === "warn") {
+      this.warn = this.#warn;
+      return;
+    }
+    if (type === "error") {
+      this.error = this.#error;
+      return;
+    }
   }
 
   disableConsole(): void {
