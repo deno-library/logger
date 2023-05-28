@@ -45,7 +45,7 @@ export async function buildDnt() {
       "Uriel Chemouni <uchemouni@gmail.com> (https://uriel.ovh/)",
     ],
     description: "deno logger available for deno and NPM",
-    keywords: ["logger", "deno"],
+    keywords: ["logger", "deno", "rotate"],
     private: false,
     homepage: "https://github.com/deno-library/logger",
     version,
