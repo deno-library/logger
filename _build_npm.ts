@@ -1,5 +1,9 @@
 // dnt deps can not be moved to dev_deps.ts
-import { build, emptyDir, type PackageJson } from "https://deno.land/x/dnt@0.36.0/mod.ts";
+import {
+  build,
+  emptyDir,
+  type PackageJson,
+} from "https://deno.land/x/dnt@0.36.0/mod.ts";
 import * as pc from "https://deno.land/std@0.188.0/fmt/colors.ts";
 
 export async function buildDnt() {
@@ -15,9 +19,11 @@ export async function buildDnt() {
       // drop the ref/tag/ and the v prefix
       version = GITHUB_REF.replace(/^.+\/[vV]?/g, "");
       console.log(
-        `GITHUB_REF values is ${pc.green(
-          GITHUB_REF
-        )} will be used as version: "${pc.green(version)}"`
+        `GITHUB_REF values is ${
+          pc.green(
+            GITHUB_REF,
+          )
+        } will be used as version: "${pc.green(version)}"`,
       );
     }
   }
@@ -30,7 +36,11 @@ export async function buildDnt() {
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
     console.error(
-      `version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`
+      `version number ${
+        pc.green(version)
+      } do not match Semantic Versioning syntax ${
+        pc.green("major.minor.path")
+      }`,
     );
     Deno.exit(-1);
   }
