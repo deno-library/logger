@@ -1,4 +1,4 @@
-const enum Types {
+export const enum Types {
   INFO = "info",
   WARN = "warn",
   ERROR = "error",
