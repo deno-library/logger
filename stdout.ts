@@ -1,4 +1,4 @@
-const isTTY = Deno.isatty(Deno.stdout.rid);
+const isTTY = Deno.stdout.isTerminal();
 import { writeAll } from "./deps.ts";
 
 export async function stdout(msg: Uint8Array): Promise<void> {
