@@ -20,17 +20,17 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1 # use nodeJS 20
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v1.1.2
+        uses: denoland/setup-deno@v1.1.4
         with:
-          deno-version: v1.x
+          deno-version: v1.40.x
 
       - name: Node setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org/
           
       - name: Run linter
