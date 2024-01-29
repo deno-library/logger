@@ -3,8 +3,8 @@ import {
   build,
   emptyDir,
   type PackageJson,
-} from "https://deno.land/x/dnt@0.36.0/mod.ts";
-import * as pc from "https://deno.land/std@0.188.0/fmt/colors.ts";
+} from "https://deno.land/x/dnt@0.39.0/mod.ts";
+import * as pc from "https://deno.land/std@0.189.0/fmt/colors.ts";
 
 export async function buildDnt() {
   let version = Deno.args[0];
