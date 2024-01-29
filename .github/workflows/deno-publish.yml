@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
    inputs:
       npm_version:
-        description: 'Version number to publish on NPM X.Y.Z'
+        description: 'Version number to publish on NPM vX.Y.Z (with the v)'
         required: true
 permissions:
   contents: read

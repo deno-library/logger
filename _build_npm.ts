@@ -30,7 +30,7 @@ export async function buildDnt() {
 
   if (!version) {
     console.error("Missing version number");
-    console.error("usage: deno run -A _build_npm.ts 0.0.0");
+    console.error("usage: deno run -A _build_npm.ts v0.0.0");
     Deno.exit(-1);
   }
   // allow only semver string
