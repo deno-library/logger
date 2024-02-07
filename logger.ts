@@ -8,7 +8,7 @@ import { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
 import Types from "./types.ts";
 const { inspect } = Deno;
 
-const noop = () => void {};
+const noop = async () => {};
 
 export default class Logger {
   private stdout = stdout;
@@ -35,11 +35,11 @@ export default class Logger {
     return this.encoder.encode(stripColor(msg) + eol);
   }
 
-  info(...args: unknown[]): void {
+  async info(...args: unknown[]): Promise<void> {
     args = [this.getInfo(), ...args];
     this.stdout(...args);
     if (this.dir) {
-      this.write({
+      await this.write({
         dir: this.dir,
         type: Types.INFO,
         args,
@@ -47,11 +47,11 @@ export default class Logger {
     }
   }
 
-  warn(...args: unknown[]): void {
+  async warn(...args: unknown[]): Promise<void> {
     args = [this.getWarn(), ...args];
     this.stdout(...args);
     if (this.dir) {
-      this.write({
+      await this.write({
         dir: this.dir,
         type: Types.WARN,
         args,
@@ -59,11 +59,11 @@ export default class Logger {
     }
   }
 
-  error(...args: unknown[]): void {
+  async error(...args: unknown[]): Promise<void> {
     args = [this.getError(), ...args];
     this.stdout(...args);
     if (this.dir) {
-      this.write({
+      await this.write({
         dir: this.dir,
         type: Types.ERROR,
         args,
@@ -71,12 +71,12 @@ export default class Logger {
     }
   }
 
-  private write({ dir, type, args }: LoggerWriteOptions): void {
+  private write({ dir, type, args }: LoggerWriteOptions): Promise<void> {
     const date = this.getDate();
     const filename = this.rotate === true ? `${date}_${type}` : type;
     const path = `${dir}/${filename}.log`;
     const msg = this.format(...args);
-    this.writer!.write({ path, msg, type });
+    return this.writer!.write({ path, msg, type });
   }
 
   async initFileLogger(
@@ -87,7 +87,7 @@ export default class Logger {
     if (!exist) {
       stdout(`${this.getWarn()} Log folder does not exist`);
       try {
-        await Deno.mkdirSync(dir, { recursive: true });
+        Deno.mkdirSync(dir, { recursive: true });
         stdout(`${this.getInfo()} Log folder create success`);
       } catch (error) {
         stdout(`${this.getError()} Log folder create failed: ` + error);
