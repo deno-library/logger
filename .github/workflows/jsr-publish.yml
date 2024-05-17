@@ -44,4 +44,5 @@ jobs:
         run: deno --version
 
       - name: Publish package ${{inputs.npm_version}}
-        run: npx jsr publish
+        # run: npx jsr publish
+        run: deno publish --dry-run  --allow-dirty
