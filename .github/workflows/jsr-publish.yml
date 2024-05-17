@@ -43,10 +43,10 @@ jobs:
       - name: show deno version
         run: deno --version
 
-      - name: git status
-        # run: npx jsr publish
-        run: git status
-
+      #- name: git status
+      #  # run: npx jsr publish
+      #  run: git status
+      # deno.lock make build dirty so we need to allow dirty
       - name: Publish package ${{inputs.npm_version}}
         # run: npx jsr publish
-        run: deno publish
+        run: deno publish --allow-dirty
