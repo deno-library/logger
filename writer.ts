@@ -1,6 +1,6 @@
 import Writable from "./writable.ts";
 import { exists } from "./fs.ts";
-import { WriterConstructor, WriterWrite } from "./interface.ts";
+import type { WriterConstructor, WriterWrite } from "./interface.ts";
 import Types from "./types.ts";
 
 export default class Writer {

@@ -97,25 +97,23 @@ await logger.initFileLogger("../log", {
 // filename is [type].log.[n]
 // example info.log.1, info.log.2 ...
 // when reach maxBackupCount, the [type].log.[maxBackupCount-1] will be overwrite
-/*
- detail:
-`maxBytes` specifies the maximum size
-in bytes that the log file can grow to before rolling over to a new one. If the
-size of the new log message plus the current log file size exceeds `maxBytes`
-then a roll over is triggered. When a roll over occurs, before the log message
-is written, the log file is renamed and appended with `.1`. If a `.1` version
-already existed, it would have been renamed `.2` first and so on. The maximum
-number of log files to keep is specified by `maxBackupCount`. After the renames
-are complete the log message is written to the original, now blank, file.
-
-Example: Given `log.txt`, `log.txt.1`, `log.txt.2` and `log.txt.3`, a
-`maxBackupCount` of 3 and a new log message which would cause `log.txt` to
-exceed `maxBytes`, then `log.txt.2` would be renamed to `log.txt.3` (thereby
-discarding the original contents of `log.txt.3` since 3 is the maximum number of
-backups to keep), `log.txt.1` would be renamed to `log.txt.2`, `log.txt` would
-be renamed to `log.txt.1` and finally `log.txt` would be created from scratch
-where the new log message would be written.
-*/
+//  detail:
+// `maxBytes` specifies the maximum size
+// in bytes that the log file can grow to before rolling over to a new one. If the
+// size of the new log message plus the current log file size exceeds `maxBytes`
+// then a roll over is triggered. When a roll over occurs, before the log message
+// is written, the log file is renamed and appended with `.1`. If a `.1` version
+// already existed, it would have been renamed `.2` first and so on. The maximum
+// number of log files to keep is specified by `maxBackupCount`. After the renames
+// are complete the log message is written to the original, now blank, file.
+//
+// Example: Given `log.txt`, `log.txt.1`, `log.txt.2` and `log.txt.3`, a
+// `maxBackupCount` of 3 and a new log message which would cause `log.txt` to
+// exceed `maxBytes`, then `log.txt.2` would be renamed to `log.txt.3` (thereby
+// discarding the original contents of `log.txt.3` since 3 is the maximum number of
+// backups to keep), `log.txt.1` would be renamed to `log.txt.2`, `log.txt` would
+// be renamed to `log.txt.1` and finally `log.txt` would be created from scratch
+// where the new log message would be written.
 await logger.initFileLogger("../log", {
   maxBytes: 10 * 1024,
   maxBackupCount: 10,
@@ -228,7 +226,7 @@ To convert your Deno project to a dual-stack npm project, you should use
 `scripts/build_npm.ts` that looks like:
 
 ```ts
-import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
+import { build, emptyDir } from "@deno/dnt";
 
 // grap the next version number as you want
 const version: Deno.args[0];

@@ -3,13 +3,16 @@ import Writer from "./writer.ts";
 import eol from "./eol.ts";
 import { exists } from "./fs.ts";
 import Dater from "./date.ts";
-import { green, red, stripColor, yellow } from "./deps.ts";
-import { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
+import { green, red, stripAnsiCode, yellow } from "./deps.ts";
+import type { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
 import Types from "./types.ts";
 const { inspect } = Deno;
 
 const noop = async () => {};
 
+/**
+ * Logger class
+ */
 export default class Logger {
   private stdout = stdout;
   private encoder = new TextEncoder();
@@ -32,9 +35,13 @@ export default class Logger {
     //   indentLevel: 2
     // })).join('');
 
-    return this.encoder.encode(stripColor(msg) + eol);
+    return this.encoder.encode(stripAnsiCode(msg) + eol);
   }
 
+  /**
+   * Log message with info level
+   * @param args data to log
+   */
   async info(...args: unknown[]): Promise<void> {
     args = [this.getInfo(), ...args];
     this.stdout(...args);
@@ -47,6 +54,10 @@ export default class Logger {
     }
   }
 
+  /**
+   * Log message with warning level
+   * @param args data to log
+   */
   async warn(...args: unknown[]): Promise<void> {
     args = [this.getWarn(), ...args];
     this.stdout(...args);
@@ -59,6 +70,10 @@ export default class Logger {
     }
   }
 
+  /**
+   * Log message with error level
+   * @param args data to log
+   */
   async error(...args: unknown[]): Promise<void> {
     args = [this.getError(), ...args];
     this.stdout(...args);
@@ -102,6 +117,10 @@ export default class Logger {
     });
   }
 
+  /**
+   * disable a specific type of logger
+   * @param type Level of logger to disable
+   */
   disable(type?: "info" | "warn" | "error"): void {
     if (!type) {
       this.info = noop;
@@ -123,6 +142,10 @@ export default class Logger {
     }
   }
 
+  /**
+   * Enable a specific type of logger
+   * @param type Level of logger to enable
+   */
   enable(type?: "info" | "warn" | "error"): void {
     if (!type) {
       this.info = this.#info;
