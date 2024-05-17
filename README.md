@@ -261,13 +261,13 @@ await build({
 ## Screenshots
 
 consoleLogger\
-![consoleLogger](https://github.com/deno-library/logger/blob/master/screenshots/consoleLogger.png)
+![consoleLogger](https://github.com/deno-library/logger/blob/master/screenshots/consoleLogger.png?raw=true)
 
 fileLogger\
-![fileLogger](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.png)
+![fileLogger](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.png?raw=true)
 
 cut logs by day\
-![CutByDay](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.rotate.png)
+![CutByDay](https://github.com/deno-library/logger/blob/master/screenshots/fileLogger.rotate.png?raw=true)
 
 More screenshots in the `screenshots` folder.
 
