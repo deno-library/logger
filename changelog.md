@@ -1,5 +1,10 @@
 ## Changelog
 
+### v1.1.6 - 2024.05.17
+
+- use JSR publish
+- add docs
+
 ### v1.1.1 - 2023.05.19
 
 - New build / deployement script
