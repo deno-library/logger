@@ -43,6 +43,10 @@ jobs:
       - name: show deno version
         run: deno --version
 
+      - name: git status
+        # run: npx jsr publish
+        run: git status
+
       - name: Publish package ${{inputs.npm_version}}
         # run: npx jsr publish
-        run: deno publish --dry-run  --allow-dirty
+        run: deno publish
