@@ -2,6 +2,8 @@
 * # deno-logger
 
 [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger)
+[![JSR Version](https://img.shields.io/jsr/v/%40deno-lib/logger)](https://jsr.io/@deno-lib/logger)
+
 Deno / NodeJS colorful logger colorful logger
 
 For Deno usage refer to [deno-logger doc](https://deno.land/x/logger)
