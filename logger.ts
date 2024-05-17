@@ -94,6 +94,11 @@ export default class Logger {
     return this.writer!.write({ path, msg, type });
   }
 
+  /**
+   * init file logger
+   * @param dir 
+   * @param options 
+   */
   async initFileLogger(
     dir: string,
     options: fileLoggerOptions = {},
@@ -166,18 +171,30 @@ export default class Logger {
     }
   }
 
+  /**
+   * Disable console logger
+   */
   disableConsole(): void {
     this.stdout = noop;
   }
 
+  /**
+   * Enable console logger
+   */
   enableConsole(): void {
     this.stdout = stdout;
   }
 
+  /**
+   * Disable file logger
+   */
   disableFile(): void {
     this.write = noop;
   }
 
+  /**
+   * Enable file logger
+   */
   enableFile(): void {
     this.write = this.#write;
   }

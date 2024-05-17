@@ -1,13 +1,26 @@
 // const format = n => n > 9 ? n : `0${n}`;
 const format = (n: number) => n.toString().padStart(2, "0");
 
+/**
+ * Dater extends Date to provide more formating methods.
+ */
 export default class Dater extends Date {
+  /**
+   * Get date string as yyyy-mm-dd hh:mm:ss
+   * @param separator 
+   * @returns 
+   */
   toLocaleString(separator = "-"): string {
     const dateString = this.toLocaleDateString(separator);
     const timeString = this.toLocaleTimeString();
     return `${dateString} ${timeString}`;
   }
 
+  /**
+   * Get date string as yyyy-mm-dd
+   * @param separator 
+   * @returns 
+   */
   toLocaleDateString(separator = "-"): string {
     const year = format(this.getFullYear());
     const month = format(this.getMonth() + 1);
@@ -15,6 +28,10 @@ export default class Dater extends Date {
     return `${year}${separator}${month}${separator}${day}`;
   }
 
+  /**
+   * Get time string as hh:mm:ss
+   * @returns 
+   */
   toLocaleTimeString(): string {
     const hour = format(this.getHours());
     const minute = format(this.getMinutes());
