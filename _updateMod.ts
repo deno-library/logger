@@ -1,7 +1,8 @@
-let readmeContent = Deno.readTextFileSync("README.md");
-const jsonConf = JSON.parse(Deno.readTextFileSync("deno.jsonc")) as {version: string};
+const readmeContentOriginal = Deno.readTextFileSync("README.md");
+const jsonStr = Deno.readTextFileSync("deno.jsonc");
+const jsonConf = JSON.parse(jsonStr) as { version: string };
 
-const readmeContent2 = readmeContent.replaceAll(
+let readmeContent = readmeContentOriginal.replaceAll(
   /https:\/\/deno.land\/x\/logger@v[\d.]+\/logger.ts/g,
   `https://deno.land/x/logger@v${jsonConf.version}/logger.ts`,
 ).replaceAll(
@@ -10,8 +11,8 @@ const readmeContent2 = readmeContent.replaceAll(
 );
 
 // update current version in readme
-if (readmeContent !== readmeContent2) {
-  Deno.writeTextFileSync("README.md", readmeContent2);
+if (readmeContent !== readmeContentOriginal) {
+  Deno.writeTextFileSync("README.md", readmeContent);
 }
 
 readmeContent = readmeContent.replaceAll(
@@ -28,12 +29,12 @@ Deno.writeTextFileSync(
 */
 
 /**
-* The Logger class
-*/
+ * The Logger class
+ */
 export { default as Logger } from "./logger.ts";
 /**
-* The Logger class default instance
-*/
+ * The Logger class default instance
+ */
 export { default as default } from "./logger.ts";
 `,
 );

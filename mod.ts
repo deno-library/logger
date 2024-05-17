@@ -250,7 +250,7 @@ await build({
   mappings: {
     "jsr:@deno-lib/logger@1.1.6/logger": {
       name: "@denodnt/logger",
-      version: "1.2.0",
+      version: "1.1.6",
       peerDependency: false,
     },
   },
@@ -303,10 +303,10 @@ interface LoggerInerface {
 */
 
 /**
-* The Logger class
-*/
+ * The Logger class
+ */
 export { default as Logger } from "./logger.ts";
 /**
-* The Logger class default instance
-*/
+ * The Logger class default instance
+ */
 export { default as default } from "./logger.ts";
