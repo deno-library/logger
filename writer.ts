@@ -17,8 +17,8 @@ export default class Writer {
 
   /**
    * Writer constructor
-   * @param param0 
-   * @returns 
+   * @param param0
+   * @returns
    */
   constructor({ maxBytes, maxBackupCount }: WriterConstructor) {
     if (maxBytes !== undefined && maxBytes <= 0) {
@@ -45,8 +45,8 @@ export default class Writer {
 
   /**
    * Write message to file
-   * @param param0 
-   * @returns 
+   * @param param0
+   * @returns
    */
   async write({ path, msg, type }: WriterWrite): Promise<void> {
     const msgByteLength = msg.byteLength;
@@ -80,7 +80,7 @@ export default class Writer {
 
   /**
    * Rotate log files
-   * @param path 
+   * @param path
    */
   async rotateLogFiles(path: string): Promise<void> {
     if (this.maxBackupCount) {

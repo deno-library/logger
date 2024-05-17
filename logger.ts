@@ -96,8 +96,8 @@ export default class Logger {
 
   /**
    * init file logger
-   * @param dir 
-   * @param options 
+   * @param dir
+   * @param options
    */
   async initFileLogger(
     dir: string,

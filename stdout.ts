@@ -3,7 +3,7 @@ import { writeAll } from "./deps.ts";
 
 /**
  * Deno stdout log function
- * @param msg 
+ * @param msg
  */
 export async function stdout(msg: Uint8Array): Promise<void> {
   await writeAll(Deno.stdout, msg);
@@ -11,7 +11,7 @@ export async function stdout(msg: Uint8Array): Promise<void> {
 
 /**
  * default log function
- * @param args 
+ * @param args
  */
 export default function log(...args: unknown[]): void {
   console.log(...args);

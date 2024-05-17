@@ -13,7 +13,7 @@ export default class Writable {
 
   /**
    * Writable constructor
-   * @param path 
+   * @param path
    */
   constructor(path: string) {
     this.path = path;
@@ -33,7 +33,7 @@ export default class Writable {
 
   /**
    * Write message to file
-   * @param msg 
+   * @param msg
    */
   async write(msg: Uint8Array): Promise<void> {
     await writeAll(this.file, msg);

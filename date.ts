@@ -7,8 +7,8 @@ const format = (n: number) => n.toString().padStart(2, "0");
 export default class Dater extends Date {
   /**
    * Get date string as yyyy-mm-dd hh:mm:ss
-   * @param separator 
-   * @returns 
+   * @param separator
+   * @returns
    */
   toLocaleString(separator = "-"): string {
     const dateString = this.toLocaleDateString(separator);
@@ -18,8 +18,8 @@ export default class Dater extends Date {
 
   /**
    * Get date string as yyyy-mm-dd
-   * @param separator 
-   * @returns 
+   * @param separator
+   * @returns
    */
   toLocaleDateString(separator = "-"): string {
     const year = format(this.getFullYear());
@@ -30,7 +30,7 @@ export default class Dater extends Date {
 
   /**
    * Get time string as hh:mm:ss
-   * @returns 
+   * @returns
    */
   toLocaleTimeString(): string {
     const hour = format(this.getHours());
