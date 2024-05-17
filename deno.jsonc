@@ -12,7 +12,7 @@
     "exclude": ["npm/"]
   },
   "publish": {
-    "include": ["*.ts", "README.md", "LICENSE", "changelog.md"],
+    "include": ["*.ts", "README.md", "LICENSE", "changelog.md", "deno.jsonc"],
     "exclude": ["_build_npm.ts"]
   }
 }
