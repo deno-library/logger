@@ -1,8 +1,11 @@
 import Writable from "./writable.ts";
 import { exists } from "./fs.ts";
-import { WriterConstructor, WriterWrite } from "./interface.ts";
+import type { WriterConstructor, WriterWrite } from "./interface.ts";
 import Types from "./types.ts";
 
+/**
+ * Writer class
+ */
 export default class Writer {
   private maxBytes?: number;
   private maxBackupCount?: number;
@@ -12,6 +15,11 @@ export default class Writer {
   private [Types.WARN]: string = "";
   private [Types.ERROR]: string = "";
 
+  /**
+   * Writer constructor
+   * @param param0
+   * @returns
+   */
   constructor({ maxBytes, maxBackupCount }: WriterConstructor) {
     if (maxBytes !== undefined && maxBytes <= 0) {
       throw new Error("maxBytes cannot be less than 1");
@@ -35,6 +43,11 @@ export default class Writer {
     return writer;
   }
 
+  /**
+   * Write message to file
+   * @param param0
+   * @returns
+   */
   async write({ path, msg, type }: WriterWrite): Promise<void> {
     const msgByteLength = msg.byteLength;
 
@@ -65,6 +78,10 @@ export default class Writer {
     await writer.write(msg);
   }
 
+  /**
+   * Rotate log files
+   * @param path
+   */
   async rotateLogFiles(path: string): Promise<void> {
     if (this.maxBackupCount) {
       for (let i = this.maxBackupCount - 1; i >= 0; i--) {

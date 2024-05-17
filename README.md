@@ -1,6 +1,8 @@
 # deno-logger
 
 [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger)
+[![JSR Version](https://jsr.io/badges/@deno-lib/logger)](https://jsr.io/@deno-lib/logger)
+
 Deno / NodeJS colorful logger colorful logger
 
 For Deno usage refer to [deno-logger doc](https://deno.land/x/logger)
@@ -10,7 +12,7 @@ For Deno usage refer to [deno-logger doc](https://deno.land/x/logger)
 ### console logger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 
@@ -22,7 +24,7 @@ logger.error("i am from consoleLogger", new Error("test"));
 ### file and console logger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 
@@ -42,7 +44,7 @@ logger.error("i am from fileLogger", new Error("test"));
 ### file logger only
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -68,7 +70,7 @@ interface fileLoggerOptions {
 example
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 const logger = new Logger();
 
 // cut by day
@@ -97,25 +99,23 @@ await logger.initFileLogger("../log", {
 // filename is [type].log.[n]
 // example info.log.1, info.log.2 ...
 // when reach maxBackupCount, the [type].log.[maxBackupCount-1] will be overwrite
-/*
- detail:
-`maxBytes` specifies the maximum size
-in bytes that the log file can grow to before rolling over to a new one. If the
-size of the new log message plus the current log file size exceeds `maxBytes`
-then a roll over is triggered. When a roll over occurs, before the log message
-is written, the log file is renamed and appended with `.1`. If a `.1` version
-already existed, it would have been renamed `.2` first and so on. The maximum
-number of log files to keep is specified by `maxBackupCount`. After the renames
-are complete the log message is written to the original, now blank, file.
-
-Example: Given `log.txt`, `log.txt.1`, `log.txt.2` and `log.txt.3`, a
-`maxBackupCount` of 3 and a new log message which would cause `log.txt` to
-exceed `maxBytes`, then `log.txt.2` would be renamed to `log.txt.3` (thereby
-discarding the original contents of `log.txt.3` since 3 is the maximum number of
-backups to keep), `log.txt.1` would be renamed to `log.txt.2`, `log.txt` would
-be renamed to `log.txt.1` and finally `log.txt` would be created from scratch
-where the new log message would be written.
-*/
+//  detail:
+// `maxBytes` specifies the maximum size
+// in bytes that the log file can grow to before rolling over to a new one. If the
+// size of the new log message plus the current log file size exceeds `maxBytes`
+// then a roll over is triggered. When a roll over occurs, before the log message
+// is written, the log file is renamed and appended with `.1`. If a `.1` version
+// already existed, it would have been renamed `.2` first and so on. The maximum
+// number of log files to keep is specified by `maxBackupCount`. After the renames
+// are complete the log message is written to the original, now blank, file.
+//
+// Example: Given `log.txt`, `log.txt.1`, `log.txt.2` and `log.txt.3`, a
+// `maxBackupCount` of 3 and a new log message which would cause `log.txt` to
+// exceed `maxBytes`, then `log.txt.2` would be renamed to `log.txt.3` (thereby
+// discarding the original contents of `log.txt.3` since 3 is the maximum number of
+// backups to keep), `log.txt.1` would be renamed to `log.txt.2`, `log.txt` would
+// be renamed to `log.txt.1` and finally `log.txt` would be created from scratch
+// where the new log message would be written.
 await logger.initFileLogger("../log", {
   maxBytes: 10 * 1024,
   maxBackupCount: 10,
@@ -158,7 +158,7 @@ await logger.initFileLogger("../log", {
 ## disableConsole and enableConsole
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 
@@ -175,7 +175,7 @@ logger.info("console enabled, you can see me");
 ## disableFile and enableFile
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -202,7 +202,7 @@ example:
 3. fileLogger, consoleLogger => disable => enable => fileLogger, consoleLogger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.5/logger.ts";
+import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -228,7 +228,7 @@ To convert your Deno project to a dual-stack npm project, you should use
 `scripts/build_npm.ts` that looks like:
 
 ```ts
-import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
+import { build, emptyDir } from "@deno/dnt";
 
 // grap the next version number as you want
 const version: Deno.args[0];
@@ -249,9 +249,9 @@ await build({
   },
   // map your favorite deno logger to its npm port.
   mappings: {
-    "https://deno.land/x/logger@v1.2.0/logger.ts": {
+    "https://deno.land/x/logger@v1.1.6/logger.ts": {
       name: "@denodnt/logger",
-      version: "1.2.0",
+      version: "1.1.6",
       peerDependency: false,
     },
   },

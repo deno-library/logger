@@ -1,4 +1,4 @@
-import Types from "./types.ts";
+import type Types from "./types.ts";
 
 export interface WriterConstructor {
   maxBytes?: number;
