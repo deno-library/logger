@@ -10,5 +10,9 @@
   },
   "test": {
     "exclude": ["npm/"]
+  },
+  "publish": {
+    "include": ["*.ts", "README.md", "LICENSE", "changelog.md"],
+    "exclude": ["_build_npm.ts"]
   }
 }
