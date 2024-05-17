@@ -17,5 +17,8 @@
   "publish": {
     "include": ["*.ts", "README.md", "LICENSE", "changelog.md", "deno.jsonc"],
     "exclude": ["_*.ts"]
+  },
+  "imports": {
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.1"
   }
 }

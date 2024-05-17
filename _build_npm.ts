@@ -3,7 +3,7 @@ import {
   build,
   emptyDir,
   type PackageJson,
-} from "https://deno.land/x/dnt@0.40.0/mod.ts";
+} from "@deno/dnt";
 import * as pc from "https://deno.land/std@0.189.0/fmt/colors.ts";
 
 export async function buildDnt() {
