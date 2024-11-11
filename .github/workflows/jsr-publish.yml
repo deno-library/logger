@@ -1,15 +1,8 @@
-name: Publish to JSR
-
+name: Publish
 on:
-  release:
-    types: [created]
-  workflow_dispatch:
-   inputs:
-      npm_version:
-        description: 'Version number to publish on JSR X.Y.Z'
-        required: true
-permissions:
-  contents: read
+  push:
+    branches:
+      - master
 
 jobs:
   publish:
@@ -20,33 +13,7 @@ jobs:
       id-token: write
 
     steps:
-      - name: Setup repo
-        uses: actions/checkout@v4.1.1 # use nodeJS 20
+      - uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1.1.4
-        with:
-          deno-version: v1.43.3
-
-      - name: Node setup
-        uses: actions/setup-node@v4.0.1
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-          
-      - name: Run linter
-        run: deno lint
-
-      - name: Run tests
-        run: deno test -A
-
-      - name: show deno version
-        run: deno --version
-
-      #- name: git status
-      #  # run: npx jsr publish
-      #  run: git status
-      # deno.lock make build dirty so we need to allow dirty
-      - name: Publish package ${{inputs.npm_version}}
-        # run: npx jsr publish
-        run: deno publish --allow-dirty
+      - name: Publish package
+        run: npx jsr publish
