@@ -20,12 +20,12 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v4.1.1 # use nodeJS 20
+        uses: actions/checkout@v4
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v1.1.4
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.43.3
+          deno-version: v2.x
 
       - name: Node setup
         uses: actions/setup-node@v4.0.1
