@@ -10,7 +10,7 @@ export default class Dater extends Date {
    * @param separator
    * @returns
    */
-  toLocaleString(separator = "-"): string {
+  override toLocaleString(separator = "-"): string {
     const dateString = this.toLocaleDateString(separator);
     const timeString = this.toLocaleTimeString();
     return `${dateString} ${timeString}`;
@@ -21,7 +21,7 @@ export default class Dater extends Date {
    * @param separator
    * @returns
    */
-  toLocaleDateString(separator = "-"): string {
+  override toLocaleDateString(separator = "-"): string {
     const year = format(this.getFullYear());
     const month = format(this.getMonth() + 1);
     const day = format(this.getDate());
@@ -32,7 +32,7 @@ export default class Dater extends Date {
    * Get time string as hh:mm:ss
    * @returns
    */
-  toLocaleTimeString(): string {
+  override toLocaleTimeString(): string {
     const hour = format(this.getHours());
     const minute = format(this.getMinutes());
     const second = format(this.getSeconds());

@@ -1,7 +1,7 @@
 import stdout from "./stdout.ts";
 import Writer from "./writer.ts";
 import eol from "./eol.ts";
-import { exists } from "./fs.ts";
+import { exists } from "./deps.ts";
 import Dater from "./date.ts";
 import { green, red, stripAnsiCode, yellow } from "./deps.ts";
 import type { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
@@ -103,7 +103,7 @@ export default class Logger {
     dir: string,
     options: fileLoggerOptions = {},
   ): Promise<void> {
-    const exist = await exists(dir);
+    const exist = await exists(dir, {isDirectory: true});
     if (!exist) {
       stdout(`${this.getWarn()} Log folder does not exist`);
       try {

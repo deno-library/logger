@@ -1,5 +1,5 @@
 import Writable from "./writable.ts";
-import { exists } from "./fs.ts";
+import { exists } from "./deps.ts";
 import type { WriterConstructor, WriterWrite } from "./interface.ts";
 import Types from "./types.ts";
 

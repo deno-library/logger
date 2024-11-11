@@ -1,13 +1,10 @@
 import { writeAll } from "./deps.ts";
 
-const { open, close, stat } = Deno;
-type File = Deno.FsFile;
-
 /**
  * Writable class
  */
 export default class Writable {
-  protected file!: File;
+  protected file!: Deno.FsFile;
   private path: string;
   currentSize = 0;
 
@@ -23,12 +20,12 @@ export default class Writable {
    * Setup writable file
    */
   async setup(): Promise<void> {
-    this.file = await open(this.path, {
+    this.file = await Deno.open(this.path, {
       create: true,
       append: true,
       write: true,
     });
-    this.currentSize = (await stat(this.path)).size;
+    this.currentSize = (await Deno.stat(this.path)).size;
   }
 
   /**
@@ -44,7 +41,6 @@ export default class Writable {
    * Close file
    */
   close(): void {
-    // this.file.close();
-    close(this.file.rid);
+    this.file.close();
   }
 }

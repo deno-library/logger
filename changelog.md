@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.1.7 - 2024.11.11
+
+- [Update the used deno API](https://github.com/deno-library/logger/pull/17)
+
 ### v1.1.6 - 2024.05.17
 
 - use JSR publish

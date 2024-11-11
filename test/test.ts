@@ -1,5 +1,5 @@
 const { test } = Deno;
-import { assert, assertEquals, assertRejects } from "../dev_deps.ts";
+import { assert, assertRejects } from "../dev_deps.ts";
 import Logger from "../logger.ts";
 
 const maxBytesError = "maxBytes cannot be less than 1";
@@ -33,16 +33,18 @@ test(workWithError, async function () {
 });
 
 const lessError = "maxBackupCount cannot be less than 1";
-test(lessError, async function (): Promise<void> {
-  try {
-    const logger = new Logger();
-    logger.disableConsole();
-    await logger.initFileLogger("../log", {
-      maxBytes: 10 * 2014,
-      maxBackupCount: 0,
-    });
-    assert(false);
-  } catch (error) {
-    assertEquals(error.message, lessError);
-  }
+test(lessError, async function () {
+  await assertRejects(
+    async () => {
+      const logger = new Logger();
+      logger.disableConsole();
+      await logger.initFileLogger("../log", {
+        maxBytes: 10 * 2014,
+        maxBackupCount: 0,
+      });
+      assert(false);
+    },
+    Error,
+    lessError,
+  );
 });
