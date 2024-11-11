@@ -17,7 +17,7 @@ if (readmeContent !== readmeContentOriginal) {
 
 readmeContent = readmeContent.replaceAll(
   /https:\/\/deno.land\/x\/logger@v[\d.]+\/logger.ts/g,
-  `jsr:@deno-lib/logger@${jsonConf.version}/logger`,
+  `jsr:@deno-library/logger@${jsonConf.version}`,
 );
 
 // Write the updated content back to the mod.ts file

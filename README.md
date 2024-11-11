@@ -1,7 +1,7 @@
 # deno-logger
 
 [![NPM Version](https://img.shields.io/npm/v/@denodnt/logger.svg?style=flat)](https://www.npmjs.org/package/@denodnt/logger)
-[![JSR Version](https://jsr.io/badges/@deno-lib/logger)](https://jsr.io/@deno-lib/logger)
+[![JSR Version](https://jsr.io/badges/@deno-library/logger)](https://jsr.io/@deno-library/logger)
 
 Deno / NodeJS colorful logger colorful logger
 
@@ -12,7 +12,9 @@ For Deno usage refer to [deno-logger doc](https://deno.land/x/logger)
 ### console logger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 
@@ -24,7 +26,9 @@ logger.error("i am from consoleLogger", new Error("test"));
 ### file and console logger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 
@@ -44,7 +48,9 @@ logger.error("i am from fileLogger", new Error("test"));
 ### file logger only
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -70,7 +76,10 @@ interface fileLoggerOptions {
 example
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
+
 const logger = new Logger();
 
 // cut by day
@@ -158,7 +167,9 @@ await logger.initFileLogger("../log", {
 ## disableConsole and enableConsole
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 
@@ -175,7 +186,9 @@ logger.info("console enabled, you can see me");
 ## disableFile and enableFile
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -202,7 +215,9 @@ example:
 3. fileLogger, consoleLogger => disable => enable => fileLogger, consoleLogger
 
 ```js
-import Logger from "https://deno.land/x/logger@v1.1.6/logger.ts";
+import { Logger } from "jsr:@deno-library/logger";
+// or
+// import Logger from "https://deno.land/x/logger@v1.1.7/logger.ts";
 
 const logger = new Logger();
 await logger.initFileLogger("../log");
@@ -249,9 +264,9 @@ await build({
   },
   // map your favorite deno logger to its npm port.
   mappings: {
-    "https://deno.land/x/logger@v1.1.6/logger.ts": {
+    "https://deno.land/x/logger@v1.1.7/logger.ts": {
       name: "@denodnt/logger",
-      version: "1.1.6",
+      version: "1.1.7",
       peerDependency: false,
     },
   },

@@ -1,5 +1,5 @@
 {
-  "name": "@deno-lib/logger",
+  "name": "@deno-library/logger",
   "version": "1.1.7",
   "exports": "./mod.ts",
   "tasks": {
