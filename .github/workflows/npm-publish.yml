@@ -7,9 +7,9 @@ on:
   release:
     types: [created]
   workflow_dispatch:
-   inputs:
+    inputs:
       npm_version:
-        description: 'Version number to publish on NPM X.Y.Z'
+        description: "Version number to publish on NPM X.Y.Z"
         required: true
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-          
+
       - name: Run linter
         run: deno lint
 

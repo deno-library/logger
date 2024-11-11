@@ -1,5 +1,1 @@
-export {
-  assert,
-  assertEquals,
-  assertRejects,
-} from "jsr:@std/assert@1.0.7";
+export { assert, assertEquals, assertRejects } from "jsr:@std/assert@1.0.7";

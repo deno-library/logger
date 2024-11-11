@@ -103,7 +103,7 @@ export default class Logger {
     dir: string,
     options: fileLoggerOptions = {},
   ): Promise<void> {
-    const exist = await exists(dir, {isDirectory: true});
+    const exist = await exists(dir, { isDirectory: true });
     if (!exist) {
       stdout(`${this.getWarn()} Log folder does not exist`);
       try {
