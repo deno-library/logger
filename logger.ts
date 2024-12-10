@@ -1,14 +1,16 @@
 import stdout from "./stdout.ts";
 import Writer from "./writer.ts";
 import eol from "./eol.ts";
-import { exists } from "./deps.ts";
 import Dater from "./date.ts";
-import { green, red, stripAnsiCode, yellow } from "./deps.ts";
+import { cyan, exists, green, red, stripAnsiCode, yellow } from "./deps.ts";
 import type { fileLoggerOptions, LoggerWriteOptions } from "./interface.ts";
 import Types from "./types.ts";
+
 const { inspect } = Deno;
 
 const noop = async () => {};
+
+export type LoggerType = "debug" | "info" | "log" | "warn" | "error";
 
 /**
  * Logger class
@@ -20,7 +22,9 @@ export default class Logger {
   private rotate = false;
   private dir?: string;
 
+  #debug = this.debug;
   #info = this.info;
+  #log = this.log;
   #warn = this.warn;
   #error = this.error;
   #write = this.write;
@@ -39,6 +43,21 @@ export default class Logger {
   }
 
   /**
+   * Log message with debug level
+   * @param args data to log
+   */
+  async debug(...args: unknown[]): Promise<void> {
+    args = [this.getDebug(), ...args];
+    this.stdout(...args);
+    if (this.dir) {
+      await this.write({
+        dir: this.dir,
+        type: Types.DEBUG,
+        args,
+      });
+    }
+  }
+  /**
    * Log message with info level
    * @param args data to log
    */
@@ -49,6 +68,22 @@ export default class Logger {
       await this.write({
         dir: this.dir,
         type: Types.INFO,
+        args,
+      });
+    }
+  }
+
+  /**
+   * Log message with info level
+   * @param args data to log
+   */
+  async log(...args: unknown[]): Promise<void> {
+    args = [this.getLog(), ...args];
+    this.stdout(...args);
+    if (this.dir) {
+      await this.write({
+        dir: this.dir,
+        type: Types.LOG,
         args,
       });
     }
@@ -126,15 +161,25 @@ export default class Logger {
    * disable a specific type of logger
    * @param type Level of logger to disable
    */
-  disable(type?: "info" | "warn" | "error"): void {
+  disable(type?: LoggerType): void {
     if (!type) {
+      this.debug = noop;
       this.info = noop;
+      this.log = noop;
       this.warn = noop;
       this.error = noop;
       return;
     }
+    if (type === "debug") {
+      this.debug = noop;
+      return;
+    }
     if (type === "info") {
       this.info = noop;
+      return;
+    }
+    if (type === "log") {
+      this.log = noop;
       return;
     }
     if (type === "warn") {
@@ -151,14 +196,24 @@ export default class Logger {
    * Enable a specific type of logger
    * @param type Level of logger to enable
    */
-  enable(type?: "info" | "warn" | "error"): void {
+  enable(type?: LoggerType): void {
     if (!type) {
+      this.debug = this.#debug;
       this.info = this.#info;
+      this.log = this.#log;
       this.warn = this.#warn;
       this.error = this.#error;
     }
+    if (type === "debug") {
+      this.debug = this.#debug;
+      return;
+    }
     if (type === "info") {
       this.info = this.#info;
+      return;
+    }
+    if (type === "log") {
+      this.log = this.#log;
       return;
     }
     if (type === "warn") {
@@ -199,8 +254,16 @@ export default class Logger {
     this.write = this.#write;
   }
 
+  private getDebug(): string {
+    return green(this.getNow() + cyan(` Debug:`));
+  }
+
   private getInfo(): string {
-    return green(`${this.getNow()} Info:`);
+    return green(this.getNow() + green(` Info:`));
+  }
+
+  private getLog(): string {
+    return green(`${this.getNow()} Log:`);
   }
 
   private getWarn(): string {

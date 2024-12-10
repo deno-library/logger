@@ -18,7 +18,9 @@ import { Logger } from "jsr:@deno-library/logger";
 
 const logger = new Logger();
 
+logger.debug("i am from consoleLogger", "debug");
 logger.info("i am from consoleLogger", { name: "zfx" });
+logger.log("i am from consoleLogger", "hello");
 logger.warn("i am from consoleLogger", 1, "any");
 logger.error("i am from consoleLogger", new Error("test"));
 ```
@@ -33,14 +35,18 @@ import { Logger } from "jsr:@deno-library/logger";
 const logger = new Logger();
 
 // console only
+logger.debug("i am from consoleLogger", "debug");
 logger.info("i am from consoleLogger", { name: "zfx" });
+logger.log("i am from consoleLogger", "hello");
 logger.warn("i am from consoleLogger", 1, "any");
 logger.error("i am from consoleLogger", new Error("test"));
 
 await logger.initFileLogger("../log");
 
 // file and console
+logger.debug("i am from consoleLogger", "debug");
 logger.info("i am from fileLogger", { name: "zfx" });
+logger.log("i am from consoleLogger", "hello");
 logger.warn("i am from fileLogger", 1, "any");
 logger.error("i am from fileLogger", new Error("test"));
 ```
