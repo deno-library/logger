@@ -1,6 +1,6 @@
 {
   "name": "@deno-library/logger",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "exports": "./mod.ts",
   "tasks": {
     "regen": "deno run -A _updateMod.ts"
