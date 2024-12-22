@@ -11,7 +11,9 @@ export default class Writer {
   private maxBackupCount?: number;
   private pathWriterMap = new Map();
 
+  private [Types.DEBUG]: string = "";
   private [Types.INFO]: string = "";
+  private [Types.LOG]: string = "";
   private [Types.WARN]: string = "";
   private [Types.ERROR]: string = "";
 
