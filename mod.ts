@@ -282,22 +282,24 @@ More screenshots in the `screenshots` folder.
 
 ```ts
 interface fileLoggerOptions {
-  rotate?: boolean;  // cut by day
-  maxBytes?: number, // the maximum size in bytes that the log file can grow to before rolling over to a new one
-  maxBackupCount?: number // maxBackupCount must work with maxBytes
+  rotate?: boolean; // cut by day
+  maxBytes?: number; // the maximum size in bytes that the log file can grow to before rolling over to a new one
+  maxBackupCount?: number; // maxBackupCount must work with maxBytes
 }
 
 interface LoggerInerface {
-  constructor()
+  constructor();
 
-  info(...args: unknown[]): void
-  warn(...args: unknown[]): void
-  error(...args: unknown[]): void
+  debug(...args: unknown[]): void;
+  info(...args: unknown[]): void;
+  log(...args: unknown[]): void;
+  warn(...args: unknown[]): void;
+  error(...args: unknown[]): void;
 
-  async initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>
+  initFileLogger(dir: string, options: fileLoggerOptions = {}): Promise<void>;
 
-  disableConsole(): void
-  enableConsole(): void
+  disableConsole(): void;
+  enableConsole(): void;
 
   disableFile(): void;
   enableFile(): void;
@@ -307,6 +309,12 @@ interface LoggerInerface {
 }
 ```
 
+## Contributors
+
+<a href="https://github.com/deno-library/logger/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=deno-library/logger" />
+</a>
+Thanks for their contributions!
 * @module
 */
 
