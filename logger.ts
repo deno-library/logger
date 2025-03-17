@@ -21,6 +21,7 @@ export default class Logger {
   private writer?: Writer;
   private rotate = false;
   private dir?: string;
+  private filename?: string;
 
   #debug = this.debug;
   #info = this.info;
@@ -123,7 +124,8 @@ export default class Logger {
 
   private write({ dir, type, args }: LoggerWriteOptions): Promise<void> {
     const date = this.getDate();
-    const filename = this.rotate === true ? `${date}_${type}` : type;
+    const filename = this.filename ||
+      (this.rotate === true ? `${date}_${type}` : type);
     const path = `${dir}/${filename}.log`;
     const msg = this.format(...args);
     return this.writer!.write({ path, msg, type });
@@ -151,6 +153,7 @@ export default class Logger {
     const { rotate, maxBytes, maxBackupCount } = options;
     if (rotate === true) this.rotate = true;
     this.dir = dir;
+    this.filename = options?.filename;
     this.writer = new Writer({
       maxBytes,
       maxBackupCount,
