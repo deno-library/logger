@@ -322,11 +322,3 @@ interface LoggerInerface {
   enable(): void;
 }
 ```
-
-## Contributors
-
-<a href="https://github.com/deno-library/logger/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=deno-library/logger" />
-</a>
-
-Thanks for their contributions!
